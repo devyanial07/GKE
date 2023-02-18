@@ -18,3 +18,7 @@ variable "secondary_subnet_cidr_2" {}
 ### GKE
 
 variable "kubernetes_version" {}
+
+variable "cluster_name" {}
+
+variable "cluster_zones" {}

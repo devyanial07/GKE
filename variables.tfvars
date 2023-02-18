@@ -9,14 +9,15 @@ secondary_subnet_cidr_2 = "10.30.0.0/16"
 
 #GKE vars
 
-name = "stateful-app"
+cluster_name = "stateful-app"
 zone = "europe-west2"
 enable_private_endpoint = false
 kubernetes_version = "1.22.12-gke.1200"
   
 cluster_zones = [
     "europe-west2-a",
-    "europe-west2-b"
+    "europe-west2-b",
+    "europe-west2-c"
   ]
   
 /* node_pools = [

@@ -6,7 +6,7 @@ variable "cluster_name" {}
 
 variable "region" {}
 
-variable "zones" {}
+variable "cluster_zones" {}
 
 variable "vpc_network" {}
 
