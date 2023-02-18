@@ -41,11 +41,11 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -var-file=variables.tfvars
+        run: terraform plan -var-file="variables.tfvars"
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-        run: terraform apply -var-file=variables.tfvars -auto-approve
+#      - name: Terraform Apply
+#        if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+#        run: terraform apply -var-file=variables.tfvars -auto-approve
 
 #  terraform:
 #    name: 'Terraform'
