@@ -33,16 +33,16 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform unlock
-        run: terraform force-unlock -force 1676758776434168
+      #- name: Terraform unlock
+      #  run: terraform force-unlock -force 1676758776434168
 
-#      - name: Terraform Plan
-#        run: terraform plan -var-file=variables.tfvars
-#
-#      - name: Terraform Apply
-#        #if: github.ref == 'refs/heads/"main"'
-#        run: terraform apply -var-file=variables.tfvars -auto-approve
-#
+      - name: Terraform Plan
+        run: terraform plan -var-file=variables.tfvars
+
+      - name: Terraform Apply
+        #if: github.ref == 'refs/heads/"main"'
+        run: terraform apply -var-file=variables.tfvars -auto-approve
+
 ##  terraform:
 #    name: 'Terraform'
 #    runs-on: ubuntu-latest
