@@ -7,6 +7,11 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
+resource "google_service_account" "service_account" {
+  account_id   = "test-sa"
+  display_name = "test sa"
+}
+
 /* module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                 = "<PROJECT ID>"
