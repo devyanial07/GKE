@@ -12,16 +12,16 @@ resource "google_service_account" "service_account" {
   display_name = "test sa"
 }
 
-/* module "gke" {
+module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
-  project_id                 = "<PROJECT ID>"
-  name                       = "gke-test-1"
-  region                     = "us-central1"
-  zones                      = ["us-central1-a", "us-central1-b", "us-central1-f"]
-  network                    = "vpc-01"
-  subnetwork                 = "us-central1-01"
-  ip_range_pods              = "us-central1-01-gke-01-pods"
-  ip_range_services          = "us-central1-01-gke-01-services"
+  project_id                 = var.project
+  name                       = var.cluster_name
+  region                     = var.region
+  zones                      = var.zones
+  network                    = var.vpc_network
+  subnetwork                 = var.vpc_subnet
+  ip_range_pods              = var.vpc_subnet_pod
+  ip_range_services          = var.vpc_subnet_svc
   http_load_balancing        = false
   network_policy             = false
   horizontal_pod_autoscaling = true
@@ -94,4 +94,4 @@ resource "google_service_account" "service_account" {
       "default-node-pool",
     ]
   }
-} */
+}
