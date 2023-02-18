@@ -7,7 +7,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-module "gke" {
+/* module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                 = "<PROJECT ID>"
   name                       = "gke-test-1"
@@ -89,4 +89,4 @@ module "gke" {
       "default-node-pool",
     ]
   }
-}
+} */
