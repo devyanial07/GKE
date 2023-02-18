@@ -15,3 +15,5 @@ variable "vpc_subnet" {}
 variable "vpc_subnet_pod" {}
 
 variable "vpc_subnet_svc" {}
+
+variable "kubernetes_version" {}
