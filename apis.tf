@@ -5,6 +5,7 @@ module "project_dns_api" {
   activate_apis = [
     "dns.googleapis.com",
     "iam.googleapis.com",
-    "iap.googleapis.com"
+    "iap.googleapis.com",
+    "compute.googleapis.com"
   ]
 }
