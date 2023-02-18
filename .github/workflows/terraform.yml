@@ -30,11 +30,22 @@ jobs:
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v1
 
+  deploy:
+    name: "plan and apply"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
         run: terraform plan -var-file=variables.tfvars
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+        run: terraform apply -var-file=variables.tfvars -auto-approve
 
 #  terraform:
 #    name: 'Terraform'
