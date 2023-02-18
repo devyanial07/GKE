@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   setup:
-    name: 'Setup GCP connection'
+    name: 'terraform -> GCP'
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
