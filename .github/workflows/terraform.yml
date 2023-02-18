@@ -38,7 +38,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/"main"'
-        run: terraform apply -auto-approve -var-file=variables.tfvars
+        run: terraform apply -auto-approve #-var-file=variables.tfvars
 
 #  terraform:
 #    name: 'Terraform'
