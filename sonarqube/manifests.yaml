@@ -68,7 +68,7 @@ spec:
           privileged: true
       containers:
       - name: sonarqube
-        image: europe-west2-docker.pkg.dev/lofty-object-378217/sonar-docker/sonarqube:latest #sonarqube:8.9.1-community
+        image: sonarqube:8.9.1-community #europe-west2-docker.pkg.dev/lofty-object-378217/sonar-docker/sonarqube:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9000
