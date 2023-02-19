@@ -74,6 +74,20 @@ spec:
         persistentVolumeClaim:
           claimName: sonar-extensions
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-service
+  namespace: sonarqube
+spec:
+  selector:
+    app: mc-service
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
