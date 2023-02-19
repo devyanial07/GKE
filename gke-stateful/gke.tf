@@ -29,6 +29,7 @@ module "gke" {
   #kubernetes_version         = var.kubernetes_version
   enable_vertical_pod_autoscaling = true
   grant_registry_access           = true
+  enable_binary_authorization     = true
   node_metadata = "GKE_METADATA_SERVER"
 
   add_master_webhook_firewall_rules = true
@@ -59,7 +60,7 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-
+  timeout = "600"
 
 }
   
