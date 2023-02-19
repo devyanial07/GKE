@@ -1,5 +1,6 @@
 resource "google_compute_address" "sq_ip_address" {
   name = "sq-address"
+  project   =   var.project
   region  = var.region
 }
 
