@@ -79,9 +79,9 @@ module "gke" {
     ]
   }
 
-  timeouts {
+  /* timeouts {
     create = "15m"
     update = "15m"
-  }
+  } */
 
 } 
