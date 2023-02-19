@@ -18,30 +18,4 @@ cluster_zones = [
     "europe-west2-a",
     "europe-west2-b",
     "europe-west2-c"
-  ]
-  
-/* node_pools = [
-      {
-      "name" : "stateful-app",
-      "machine_type" : "e2-medium",
-      "node_locations" : "europe-west2-a,europe-west2-b,europe-west2-c"
-      "disk_type" : "pd-ssd",
-      "image_type" : "COS_CONTAINERD",
-      "auto_repair" : true,
-      "auto_upgrade" : true,
-      "initial_node_count" : 1,
-      "min_count" : 1,
-      "max_count" : 2,
-      "enable_integrity_monitoring" : true,
-      "enable_secure_boot" : true
-      
-    }
-  ]
-
-node_pools_oauth_scopes = {
-  "ssd8-np" : [
-    "https://www.googleapis.com/auth/cloud_debugger",
-    "https://www.googleapis.com/auth/monitoring"
-  ]
-}
- */
+]

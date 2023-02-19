@@ -94,12 +94,12 @@ resource "helm_release" "sonarqube" {
   create_namespace = true
   namespace  = "sonarqube"
   timeout    = "300"
-  KUBERNETES_MASTER = var.cluster_name
+  
   version    = "6.0.1"
 
-  values = [
+  /* values = [
     "${file("./helm_values/values.yaml")}"
-  ]
+  ] */
 
 
   /* set {
