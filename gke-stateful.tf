@@ -29,7 +29,9 @@ provider "kubernetes" {
 
 
 module "gke" {
-  
+  depends_on  = [
+    module.project_api
+  ]
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   #version                    = "21.1.0"
   project_id                 = var.project

@@ -7,6 +7,8 @@ module "project_api" {
     "iam.googleapis.com",
     "iap.googleapis.com",
     "compute.googleapis.com",
-    "container.googleapis.com"
+    "container.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com"
   ]
 }
