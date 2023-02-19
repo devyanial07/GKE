@@ -103,4 +103,4 @@ jobs:
         kubectl version
 
         kubectl apply -f sonarqube/deploy.yaml
-        kubectl describe ConfigMap postgres 
+        kubectl describe configmaps postgres -n sonarqube
