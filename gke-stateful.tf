@@ -85,10 +85,35 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-
-  /* timeouts {
-    create = "15m"
-    update = "15m"
-  } */
-
 } 
+
+resource "helm_release" "sonarqube" {
+  name       = "sonarqube"
+  repository = "https://SonarSource.github.io/helm-chart-sonarqube"
+  chart      = "sonarqube/sonarqube"
+  create_namespace = true
+  namespace  = "sonarqube"
+  timeout    = "300"
+  
+  version    = "6.0.1"
+
+  values = [
+    "${file("./helm_values/values.yaml")}"
+  ]
+
+  /* set {
+    name  = "cluster.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "metrics.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "service.annotations.prometheus\\.io/port"
+    value = "9127"
+    type  = "string"
+  } */
+}

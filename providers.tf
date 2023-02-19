@@ -9,3 +9,7 @@ provider "kubernetes" {
 provider "google" {
   project   =   var.project
 }
+
+provider "helm" {
+  # Configuration options
+}
