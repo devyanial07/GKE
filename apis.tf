@@ -35,3 +35,33 @@ resource "google_project_iam_member" "gke_role" {
   member = "serviceAccount:${google_service_account.gke_sa.email}"
   project = var.project
 }
+
+resource "google_project_iam_member" "gke_role" {
+  for_each = toset([
+    "roles/cloudsql.admin",
+    "roles/secretmanager.secretAccessor",
+    "roles/datastore.owner",
+    "roles/storage.admin",
+    "roles/artifactregistry.admin",
+    "roles/container.clusterAdmin",
+    "roles/container.developer"
+  ])
+  role = each.key
+  member = "serviceAccount:813165853992-compute@developer.gserviceaccount.com"
+  project = var.project
+}
+
+resource "google_project_iam_member" "cb_role" {
+  for_each = toset([
+    "roles/cloudsql.admin",
+    "roles/secretmanager.secretAccessor",
+    "roles/datastore.owner",
+    "roles/storage.admin",
+    "roles/artifactregistry.admin",
+    "roles/container.clusterAdmin",
+    "roles/container.developer"
+  ])
+  role = each.key
+  member = "serviceAccount:813165853992@cloudbuild.gserviceaccount.com"
+  project = var.project
+}
