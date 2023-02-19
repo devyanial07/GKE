@@ -80,7 +80,7 @@ jobs:
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
-        cluster_name: stateful-gkeapp
+        cluster_name: gkeapp
         location: europe-west2
     
     # Set up kustomize
