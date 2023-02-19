@@ -33,6 +33,9 @@ metadata:
   namespace: sonarqube
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sonar
   template:
     metadata:
       labels:
