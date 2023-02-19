@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: lofty-object-378217
   GAR_LOCATION: europe-west2 # TODO: update region of the Artifact Registry
-  GKE_CLUSTER: stateful-gkeapp   # TODO: update to cluster name
+  GKE_CLUSTER: gkeapp   # TODO: update to cluster name
   GKE_ZONE: europe-west2-a   # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: sonar-docker # TODO: update to Artifact Registry docker repository
