@@ -14,6 +14,10 @@
   vpc_subnet_svc         = "${var.vpc_network_name}-secondary-2"
   kubernetes_version     = var.kubernetes_version
 } */
+resource "google_service_account" "gke_sa" {
+  account_id   = "gke-sa"
+  display_name = "Service Account for gke"
+}
 
 data "google_client_config" "default" {}
 
@@ -67,7 +71,7 @@ module "gke" {
       image_type                = "COS_CONTAINERD"
       auto_repair               = true
       auto_upgrade              = true
-      service_account           = "project-service-account@<PROJECT ID>.iam.gserviceaccount.com"
+      service_account           = google_service_account.gke_sa.email
       initial_node_count        = 1
       enable_secure_boot        = true
     },
