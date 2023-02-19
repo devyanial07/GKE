@@ -1,107 +1,80 @@
-# FROM dockerfile/ubuntu:latest
+FROM nginx:mainline as builder
 
-# # Install Nginx.
-# RUN \
-#   add-apt-repository -y ppa:nginx/stable && \
-#   apt-get update && \
-#   apt-get install -y nginx && \
-#   rm -rf /var/lib/apt/lists/* && \
-#   echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
-#   chown -R www-data:www-data /var/lib/nginx
+ARG ENABLED_MODULES
 
-# # Define mountable directories.
-# VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
+RUN set -ex \
+    && if [ "$ENABLED_MODULES" = "" ]; then \
+        echo "No additional modules enabled, exiting"; \
+        exit 1; \
+    fi
 
-# # Define working directory.
-# WORKDIR /etc/nginx
+COPY ./ /modules/
 
-# # Define default command.
-# CMD ["nginx"]
-
-# # Expose ports.
-# EXPOSE 80
-# EXPOSE 443
-
-FROM nginx:latest
-
-ENV NJS_VERSION   0.7.9
-
-RUN set -x \
-    && apkArch="$(cat /etc/apk/arch)" \
-    && nginxPackages=" \
-        nginx=${NGINX_VERSION}-r${PKG_RELEASE} \
-        nginx-module-xslt=${NGINX_VERSION}-r${PKG_RELEASE} \
-        nginx-module-geoip=${NGINX_VERSION}-r${PKG_RELEASE} \
-        nginx-module-image-filter=${NGINX_VERSION}-r${PKG_RELEASE} \
-        nginx-module-njs=${NGINX_VERSION}.${NJS_VERSION}-r${PKG_RELEASE} \
-    " \
-# install prerequisites for public key and pkg-oss checks
-    && apk add --no-cache --virtual .checksum-deps \
-        openssl \
-    && case "$apkArch" in \
-        x86_64|aarch64) \
-# arches officially built by upstream
-            set -x \
-            && KEY_SHA512="e09fa32f0a0eab2b879ccbbc4d0e4fb9751486eedda75e35fac65802cc9faa266425edf83e261137a2f4d16281ce2c1a5f4502930fe75154723da014214f0655" \
-            && wget -O /tmp/nginx_signing.rsa.pub https://nginx.org/keys/nginx_signing.rsa.pub \
-            && if echo "$KEY_SHA512 */tmp/nginx_signing.rsa.pub" | sha512sum -c -; then \
-                echo "key verification succeeded!"; \
-                mv /tmp/nginx_signing.rsa.pub /etc/apk/keys/; \
-            else \
-                echo "key verification failed!"; \
+RUN set -ex \
+    && apt update \
+    && apt install -y --no-install-suggests --no-install-recommends \
+                patch make wget mercurial devscripts debhelper dpkg-dev \
+                quilt lsb-release build-essential libxml2-utils xsltproc \
+                equivs git g++ libparse-recdescent-perl \
+    && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
+    && wget -O /tmp/xslscript.pl https://hg.nginx.org/xslscript/raw-file/01dc9ba12e1b/xslscript.pl \
+    && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
+        echo "XSLScript checksum verification succeeded!"; \
+        chmod +x /tmp/xslscript.pl; \
+        mv /tmp/xslscript.pl /usr/local/bin/; \
+    else \
+        echo "XSLScript checksum verification failed!"; \
+        exit 1; \
+    fi \
+    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://hg.nginx.org/pkg-oss/ \
+    && cd pkg-oss \
+    && mkdir /tmp/packages \
+    && for module in $ENABLED_MODULES; do \
+        echo "Building $module for nginx-$NGINX_VERSION"; \
+        if [ -d /modules/$module ]; then \
+            echo "Building $module from user-supplied sources"; \
+            # check if module sources file is there and not empty
+            if [ ! -s /modules/$module/source ]; then \
+                echo "No source file for $module in modules/$module/source, exiting"; \
                 exit 1; \
-            fi \
-            && apk add -X "https://nginx.org/packages/alpine/v$(egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release)/main" --no-cache $nginxPackages \
-            ;; \
-        *) \
-# we're on an architecture upstream doesn't officially build for
-# let's build binaries from the published packaging sources
-            set -x \
-            && tempDir="$(mktemp -d)" \
-            && chown nobody:nobody $tempDir \
-            && apk add --no-cache --virtual .build-deps \
-                gcc \
-                libc-dev \
-                make \
-                openssl-dev \
-                pcre2-dev \
-                zlib-dev \
-                linux-headers \
-                libxslt-dev \
-                gd-dev \
-                geoip-dev \
-                libedit-dev \
-                bash \
-                alpine-sdk \
-                findutils \
-            && su nobody -s /bin/sh -c " \
-                export HOME=${tempDir} \
-                && cd ${tempDir} \
-                && curl -f -O https://hg.nginx.org/pkg-oss/archive/757.tar.gz \
-                && PKGOSSCHECKSUM=\"32a039e8d3cc54404a8ad4a31981e76a49632f1ebec2f45bb309689d6ba2f82e3e8aea8abf582b49931636ea53271b48a7e2f2ef8ebe35b167b3fe18b8b99852 *757.tar.gz\" \
-                && if [ \"\$(openssl sha512 -r 757.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
-                    echo \"pkg-oss tarball checksum verification succeeded!\"; \
-                else \
-                    echo \"pkg-oss tarball checksum verification failed!\"; \
-                    exit 1; \
-                fi \
-                && tar xzvf 757.tar.gz \
-                && cd pkg-oss-757 \
-                && cd alpine \
-                && make module-geoip module-image-filter module-njs module-xslt \
-                && apk index -o ${tempDir}/packages/alpine/${apkArch}/APKINDEX.tar.gz ${tempDir}/packages/alpine/${apkArch}/*.apk \
-                && abuild-sign -k ${tempDir}/.abuild/abuild-key.rsa ${tempDir}/packages/alpine/${apkArch}/APKINDEX.tar.gz \
-                " \
-            && cp ${tempDir}/.abuild/abuild-key.rsa.pub /etc/apk/keys/ \
-            && apk del .build-deps \
-            && apk add -X ${tempDir}/packages/alpine/ --no-cache $nginxPackages \
-            ;; \
-    esac \
-# remove checksum deps
-    && apk del .checksum-deps \
-# if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
-    && if [ -n "$tempDir" ]; then rm -rf "$tempDir"; fi \
-    && if [ -n "/etc/apk/keys/abuild-key.rsa.pub" ]; then rm -f /etc/apk/keys/abuild-key.rsa.pub; fi \
-    && if [ -n "/etc/apk/keys/nginx_signing.rsa.pub" ]; then rm -f /etc/apk/keys/nginx_signing.rsa.pub; fi \
-# Bring in curl and ca-certificates to make registering on DNS SD easier
-    && apk add --no-cache curl ca-certificates
+            fi; \
+            # some modules require build dependencies
+            if [ -f /modules/$module/build-deps ]; then \
+                echo "Installing $module build dependencies"; \
+                apt update && apt install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
+            fi; \
+            # if a module has a build dependency that is not in a distro, provide a
+            # shell script to fetch/build/install those
+            # note that shared libraries produced as a result of this script will
+            # not be copied from the builder image to the main one so build static
+            if [ -x /modules/$module/prebuild ]; then \
+                echo "Running prebuild script for $module"; \
+                /modules/$module/prebuild; \
+            fi; \
+            /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n $module $(cat /modules/$module/source); \
+            BUILT_MODULES="$BUILT_MODULES $(echo $module | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
+        elif make -C /pkg-oss/debian list | grep -P "^$module\s+\d" > /dev/null; then \
+            echo "Building $module from pkg-oss sources"; \
+            cd /pkg-oss/debian; \
+            make rules-module-$module BASE_VERSION=$NGINX_VERSION NGINX_VERSION=$NGINX_VERSION; \
+            mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debuild-module-$module/nginx-$NGINX_VERSION/debian/control; \
+            make module-$module BASE_VERSION=$NGINX_VERSION NGINX_VERSION=$NGINX_VERSION; \
+            find ../../ -maxdepth 1 -mindepth 1 -type f -name "*.deb" -exec mv -v {} /tmp/packages/ \;; \
+            BUILT_MODULES="$BUILT_MODULES $module"; \
+        else \
+            echo "Don't know how to build $module module, exiting"; \
+            exit 1; \
+        fi; \
+    done \
+    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
+
+FROM nginx:mainline
+COPY --from=builder /tmp/packages /tmp/packages
+RUN set -ex \
+    && apt update \
+    && . /tmp/packages/modules.env \
+    && for module in $BUILT_MODULES; do \
+           apt install --no-install-suggests --no-install-recommends -y /tmp/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
+       done \
+    && rm -rf /tmp/packages \
+    && rm -rf /var/lib/apt/lists/
