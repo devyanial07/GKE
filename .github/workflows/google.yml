@@ -59,23 +59,23 @@ jobs:
         gcloud auth configure-docker gcr.io
 
     # Build the Docker image
-    - name: Build
-      run: |-
-        docker build .\
-          --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
-          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-        
-        docker image ls
-          
-    # Push the Docker image to Google Artifact Registry
-    - name: Publish
-      run: |-
-        docker image ls
-        
-        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
-
+#    - name: Build
+#      run: |-
+#        docker build .\
+#          --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
+#          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
+#          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+#          --build-arg GITHUB_REF="$GITHUB_REF" \
+#        
+#        docker image ls
+#          
+#    # Push the Docker image to Google Artifact Registry
+#    - name: Publish
+#      run: |-
+#        docker image ls
+#        
+#        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+#
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
