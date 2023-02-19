@@ -26,7 +26,7 @@ module "gke" {
   issue_client_certificate   = false
   remove_default_node_pool   = true
   master_ipv4_cidr_block     = "10.0.0.0/28"
-  kubernetes_version         = var.kubernetes_version
+  #kubernetes_version         = var.kubernetes_version
   enable_vertical_pod_autoscaling = true
   grant_registry_access           = true
   node_metadata = "GKE_METADATA_SERVER"
