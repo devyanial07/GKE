@@ -27,7 +27,9 @@ resource "google_project_iam_member" "gke_role" {
     "roles/secretmanager.secretAccessor",
     "roles/datastore.owner",
     "roles/storage.admin",
-    "roles/artifactregistry.admin"
+    "roles/artifactregistry.admin",
+    "roles/container.clusterAdmin",
+    "roles/container.developer"
   ])
   role = each.key
   member = "serviceAccount:${google_service_account.gke_sa.email}"
