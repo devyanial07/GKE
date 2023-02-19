@@ -89,4 +89,4 @@ jobs:
       run: |-
         docker image ls
         
-        docker push europe-west2-docker.pkg.dev/lofty-object-378217/sonar-docker/sonarqube:latest
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
