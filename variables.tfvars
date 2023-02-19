@@ -9,7 +9,7 @@ secondary_subnet_cidr_2 = "10.30.0.0/16"
 
 #GKE vars
 
-cluster_name = "stateful-gkeapp"
+cluster_name = "gkeapp"
 zone = "europe-west2"
 enable_private_endpoint = false
 kubernetes_version = "1.22.12-gke.1200"
