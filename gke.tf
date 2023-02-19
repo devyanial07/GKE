@@ -19,7 +19,7 @@ resource "google_container_cluster" "primary" {
     tags = ["foo", "bar"]
   }
   timeouts {
-    create = "30m"
-    update = "40m"
+    create = "15m"
+    update = "15m"
   }
 }
