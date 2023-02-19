@@ -9,17 +9,21 @@ output "ip_sonarqube" {
     value = google_compute_address.sq_ip_address.id
 }
 
-data "google_dns_managed_zone" "sq_zone" {
+data "google_dns_managed_zone" "sq_name_zone" {
   name = "d-e-l-o-com"
   project   =   var.project
 }
 
+output "zone_sonarqube" {
+    description = "sonarqube zone"
+    value = data.google_dns_managed_zone.sq_name_zone.name
+}
 
-resource "google_dns_record_set" "sq" {
+/* resource "google_dns_record_set" "sq" {
   name         = "sonarqube.d-e-l-o.com."
   managed_zone = "d-e-l-o.com."
   type         = "A"
   ttl          = 300
 
   rrdatas = ["34.105.224.15"]
-}
+} */
