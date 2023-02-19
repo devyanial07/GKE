@@ -65,10 +65,10 @@ module "gke" {
     ]
   }
 } 
-
+/* 
 output "gke_endpoint" {
   value = module.gke.endpoint
-}
+} */
 locals {
   gke = ["34.89.110.206/32"]
 } 
