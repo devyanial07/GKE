@@ -1,14 +1,12 @@
-FROM node:10-alpine
+FROM golang:1.19.2 as builder
+WORKDIR /app
+RUN go mod init hello-app
+COPY *.go ./
+RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-app
 
-ARG COMMIT_REF
-ARG BUILD_DATE
-
-RUN mkdir -p /code
-WORKDIR /code
-ADD . /code
-RUN npm install -g -s --no-progress yarn && yarn install --prod
-
-ENV APP_COMMIT_REF=${COMMIT_REF} \
-    APP_BUILD_DATE=${BUILD_DATE}
-CMD [ "yarn", "start" ]
-EXPOSE 3000
+FROM gcr.io/distroless/base-debian11
+WORKDIR /
+COPY --from=builder /hello-app /hello-app
+ENV PORT 8080
+USER nonroot:nonroot
+CMD ["/hello-app"]
