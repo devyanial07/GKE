@@ -91,4 +91,5 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy manifests to gke
       run: |-
-        kubectl delete -f sonarqube/deploy.yaml
+        kubectl apply -f sonarqube/deploy.yaml
+        kubectl get storageclass

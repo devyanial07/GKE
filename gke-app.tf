@@ -1,14 +1,14 @@
-resource "google_service_account" "gke_sa_app" {
+/* resource "google_service_account" "gke_sa_app" {
   account_id   = "gke-sa-app"
   display_name = "Service Account for gke"
-}
+} */
 
 /* provider "kubernetes" {
   host                   = "https://${module.gke_app.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.gke_app.ca_certificate)
 } */
-
+/* 
 module "gke_app" {
   depends_on  = [
     module.project_api
@@ -66,4 +66,4 @@ module "gke_app" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-} 
+}  */
