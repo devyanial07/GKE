@@ -12,7 +12,10 @@ env:
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: sonar-docker # TODO: update to Artifact Registry docker repository
   IMAGE: sonarqube
-
+  POSTGRESQL_USERNAME: ${{ secrets.POSTGRESQL_USERNAME}}
+  POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD}}
+  POSTGRESQL_DATABASE: ${{ secrets.POSTGRESQL_DATABASE}}
+  POSTGRESQL_JBDCURL:  ${{ secrets.POSTGRESQL_JBDCURL}}
 jobs:
   setup-build-publish-deploy:
     name: build and push docker image
