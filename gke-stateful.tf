@@ -89,7 +89,7 @@ module "gke" {
 
 resource "helm_release" "sonarqube" {
   name       = "sonarqube"
-  repository = "https://SonarSource.github.io/helm-chart-sonarqube"
+  repository = "https://SonarSource.github.io/helm-chart-sonarqube/sonarqube"
   chart      = "sonarqube"
   create_namespace = true
   namespace  = "sonarqube"
