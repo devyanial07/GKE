@@ -101,6 +101,7 @@ spec:
   ports:
     - protocol: TCP
       port: 9000
+  type: ClusterIP
 ---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
@@ -125,8 +126,10 @@ spec:
   - host: sonarqube.d-e-l-o.com
     http:
       paths:
-      - path: /
+      - path: /*
         pathType: ImplementationSpecific
         backend:
-          serviceName: sqservice
-          servicePort: 9000
+          service:
+            name: sqservice
+            port: 
+              number: 9000
