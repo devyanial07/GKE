@@ -15,7 +15,7 @@
   kubernetes_version     = var.kubernetes_version
 } */
 
-data "google_client_config" "default" {}
+/* data "google_client_config" "default" {}
 
 provider "kubernetes" {
   host                   = "https://${module.gke.endpoint}"
@@ -84,4 +84,4 @@ module "gke" {
     update = "5m"
   }
 
-}
+} */
