@@ -16,6 +16,7 @@ module "project_api" {
     "networkmanagement.googleapis.com",
     "containerregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "dns.googleapis.com"
+    "dns.googleapis.com",
+    "cloudbuild.googleapis.com"
   ]
 }
