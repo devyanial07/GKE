@@ -16,8 +16,8 @@ data "google_dns_managed_zone" "sq_zone" {
 
 
 resource "google_dns_record_set" "sq" {
-  name         = "sonarqube.${data.google_dns_managed_zone.sq_zone.dns_name}"
-  managed_zone = data.google_dns_managed_zone.sq_zone.dns_name
+  name         = "sonarqube.d-e-l-o.com"
+  managed_zone = "d-e-l-o.com"
   type         = "A"
   ttl          = 300
 
