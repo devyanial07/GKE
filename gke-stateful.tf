@@ -24,7 +24,7 @@ provider "kubernetes" {
 }
 
 
-/* module "gke" {
+module "gke" {
   
   #timeouts = {"600"}
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
@@ -80,4 +80,4 @@ provider "kubernetes" {
     ]
   }
 
-} */
+}
