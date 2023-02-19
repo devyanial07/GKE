@@ -43,7 +43,7 @@ module "gke" {
   http_load_balancing        = true
   network_policy             = true
   horizontal_pod_autoscaling = true
-  enable_private_endpoint    = true
+  #enable_private_endpoint    = true
   enable_private_nodes       = true
   issue_client_certificate   = false
   remove_default_node_pool   = true
@@ -53,7 +53,7 @@ module "gke" {
   grant_registry_access           = true
   enable_binary_authorization     = true
   node_metadata = "GKE_METADATA_SERVER"
-  master_authorized_networks      = []
+  #master_authorized_networks      = []
 
   add_master_webhook_firewall_rules = true
   add_cluster_firewall_rules        = true
