@@ -60,7 +60,7 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-  timeout = "600"
+  timeouts = "600"
 
 }
   
