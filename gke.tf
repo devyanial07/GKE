@@ -49,7 +49,7 @@ module "gke" {
       image_type                = "COS_CONTAINERD"
       auto_repair               = true
       auto_upgrade              = true
-      service_account           = "serviceAccount:${google_service_account.gke_sa.email}"
+      service_account           = google_service_account.gke_sa.email
       initial_node_count        = 1
       enable_secure_boot        = true
     },
