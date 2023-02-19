@@ -71,7 +71,7 @@ jobs:
       run: |-
         docker build .\
           --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
         
@@ -81,5 +81,5 @@ jobs:
     - name: Publish
       run: |-
         docker image ls
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
-    
+        
+        docker push europe-west2-docker.pkg.dev/lofty-object-378217/europe-west2-docker.pkg.dev/lofty-object-378217/sonar-docker/sonarqube:latest
