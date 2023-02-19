@@ -22,5 +22,3 @@ variable "kubernetes_version" {}
 variable "cluster_name" {}
 
 variable "cluster_zones" {}
-
-variable
