@@ -29,7 +29,7 @@ module "gke" {
   issue_client_certificate   = false
   remove_default_node_pool   = true
   master_ipv4_cidr_block     = "10.0.0.0/28"
-  #kubernetes_version         = var.kubernetes_version
+  kubernetes_version         = "1.18.17-gke.1901"
   enable_vertical_pod_autoscaling = true
   grant_registry_access           = true
   enable_binary_authorization     = true
