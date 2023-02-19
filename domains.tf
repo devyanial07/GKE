@@ -29,9 +29,9 @@ output "zone_sonarqube" {
 
 resource "google_dns_record_set" "webapp" {
   name         = "webapp.d-e-l-o.com."
-  managed_zone = ".d-e-l-o.com."
+  managed_zone = "d-e-l-o.com."
   type         = "A"
   ttl          = 300
 
-  rrdatas = ["34.105.224.15"]
+  rrdatas = ["34.117.179.184"]
 } 
