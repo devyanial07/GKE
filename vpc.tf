@@ -32,38 +32,3 @@ module "vpc_network" {
     ]
   }
 }
-
-  
-/*  resource "google_compute_address" "router_demo" {
-  name         = "varnet-router"
-  project      = 
-  region       = 
-  network_tier = "PREMIUM"
-}
-
-resource "google_compute_router" "router_demo" {
-  project = 
-  name    = "-router"
-  network = netwiorkname
-  region  = 
-}
-
-data "google_compute_address" "router-address" {
-  name    = "prjnet-router"
-  project = 
-  region  = 
-}
-
-module "cloud-nat" {
-  source                             = "terraform-google-modules/cloud-nat/google"
-  version                            = "2.2.0"
-  project_id                         = 
-  region                             = 
-  router                             = google_compute_router.router_demo.name
-  name                               = "network-nat"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-  nat_ips                            = [google_compute_address.router_demo.self_link]
-  log_config_enable                   = true
-  log_config_filter                 = "ERRORS_ONLY"
-}
- */
