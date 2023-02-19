@@ -78,3 +78,24 @@ module "gke" {
     "${file("./helm_values/values.yaml")}"
   ]
 } */
+
+resource "google_sql_database_instance" "postgres" {
+  name             = "postgres-instance"
+  database_version = "POSTGRES_11"
+  region           = var.region
+  project          = var.project
+
+  settings {
+    tier = "db-f1-micro"
+
+    ip_configuration {
+      private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
+      dynamic "authorized_networks" {
+        content {
+          name  = "gke-endpoint"
+          value = module.gke.endpoint
+        }
+      }
+    }
+  }
+}
