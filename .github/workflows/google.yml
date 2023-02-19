@@ -92,3 +92,5 @@ jobs:
     - name: Deploy manifests to gke
       run: |-
         kubectl version
+
+        kubectl apply -f sonarqube/deploy.yaml
