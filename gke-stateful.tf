@@ -1,32 +1,7 @@
-/* module "gke_stateful" {
-  /* depends_on  = [
-        module.vpc_network
-    ] 
-  source                 = "./gke-stateful"
-  project                = var.project
-  region                 = var.region
-  cluster_zones          = var.cluster_zones
-  cluster_name           = var.cluster_name
-  vpc_network_name       = var.vpc_network_name
-  vpc_network            = var.vpc_network_name
-  vpc_subnet             = "${var.vpc_network_name}-primary"
-  vpc_subnet_pod         = "${var.vpc_network_name}-secondary-1"
-  vpc_subnet_svc         = "${var.vpc_network_name}-secondary-2"
-  kubernetes_version     = var.kubernetes_version
-} */
 resource "google_service_account" "gke_sa" {
   account_id   = "gke-sa"
   display_name = "Service Account for gke"
 }
-
-data "google_client_config" "default" {}
-
-provider "kubernetes" {
-  host                   = "https://${module.gke.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
-}
-
 
 module "gke" {
   depends_on  = [
@@ -93,11 +68,11 @@ resource "helm_release" "sonarqube" {
   chart      = "sonarqube"
   create_namespace = true
   namespace  = "sonarqube"
-  timeout    = "300"
+  timeout    = "600"
   
-  version    = "6.0.1"
+  #version    = "6.0.1"
 
-  /* values = [
+  values = [
     "${file("./helm_values/values.yaml")}"
-  ] */
+  ]
 }
