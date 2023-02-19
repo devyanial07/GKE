@@ -10,6 +10,7 @@ module "project_api" {
     "container.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
-    "domains.googleapis.com"
+    "domains.googleapis.com",
+    "artifactregistry.googleapis.com"
   ]
 }

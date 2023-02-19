@@ -24,7 +24,7 @@ module "gke_app" {
   enable_private_nodes       = true
   issue_client_certificate   = false
   remove_default_node_pool   = true
-  master_ipv4_cidr_block     = "10.0.0.0/28"
+  master_ipv4_cidr_block     = "10.0.1.0/28"
   #kubernetes_version         = var.kubernetes_version
   enable_vertical_pod_autoscaling = true
   grant_registry_access           = true
