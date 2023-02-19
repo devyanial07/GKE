@@ -92,4 +92,4 @@ jobs:
     - name: Deploy manifests to gke
       run: |-
         
-        kubectl delete -f sonarqube/deploy.yaml
+        kubectl apply -f sonarqube/deploy.yaml
