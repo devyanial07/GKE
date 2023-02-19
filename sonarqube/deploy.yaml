@@ -42,8 +42,19 @@ spec:
         app: sonarqube
     spec:
       containers:
+        initContainers:
+        - name: init
+          image: busybox
+          command:
+          - sysctl
+          - -w
+          - vm.max_map_count=262144
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
         - name: sonarqube
           image: sonarqube:8.9.1-community
+          imagePullPolicy: IfNotPresent
           resources:
             requests:
               cpu: 500m
@@ -54,8 +65,10 @@ spec:
           volumeMounts:
           - mountPath: "/opt/sonarqube/data/"
             name: sonar-data
+            subPath: data
           - mountPath: "/opt/sonarqube/extensions/"
             name: sonar-extensions
+            subPath: extensions
           env:
           - name: "SONARQUBE_JDBC_USERNAME"
             value: ${{ env.POSTGRESQL_USERNAME}}
