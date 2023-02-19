@@ -80,9 +80,16 @@ resource "google_sql_database_instance" "postgres" {
 
   settings {
     tier = "db-f1-micro"
+    availability_type = "ZONAL"
+
+    location_preference {
+      zone = "europe-west2-a"
+    }
 
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
+      require_ssl     = "false"
+      
       dynamic "authorized_networks" {
         for_each = local.gke
         iterator = gke
