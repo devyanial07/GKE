@@ -20,7 +20,6 @@ parameters:
   fstype: ext4
   replication-type: none
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
