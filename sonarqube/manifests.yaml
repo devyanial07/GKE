@@ -129,15 +129,6 @@ metadata:
 spec:
   rules:
   - host: sonarqube.d-e-l-o.com
-    http:
-      paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: sqservice
-            port: 
-              number: 9000
     https:
       paths:
       - path: /*
