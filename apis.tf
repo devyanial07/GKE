@@ -20,3 +20,15 @@ module "project_api" {
     "cloudbuild.googleapis.com"
   ]
 }
+
+resource "google_project_iam_member" "gke_role" {
+  for_each = toset([
+    "roles/cloudsql.admin",
+    "roles/secretmanager.secretAccessor",
+    "roles/datastore.owner",
+    "roles/storage.admin",
+  ])
+  role = each.key
+  member = "serviceAccount:${google_service_account.gke_sa.email}"
+  project = var.project
+}

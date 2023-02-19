@@ -5,7 +5,7 @@ resource "google_artifact_registry_repository" "sq_repo" {
   format        = "DOCKER"
 }
 
-resource "google_artifact_registry_repository" "sq_repo" {
+resource "google_artifact_registry_repository" "web_repo" {
   location      = var.region
   repository_id = "web-app"
   description   = "webapp docker repository"
