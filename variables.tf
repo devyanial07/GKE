@@ -28,3 +28,9 @@ variable "timeouts" {
   description = "Timeout for cluster operations."
   default     = {}
 }
+
+variable "POSTGRESQL_DATABASE" {}
+
+variable "POSTGRESQL_PASSWORD" {}
+
+variable "POSTGRESQL_USERNAME" {}

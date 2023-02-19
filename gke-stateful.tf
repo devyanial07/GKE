@@ -72,8 +72,9 @@ output "gke_endpoint" {
 locals {
   gke = ["34.89.110.206"]
 } 
-/* resource "google_sql_database_instance" "postgres" {
-  name             = "postgres-instance"
+resource "google_sql_database_instance" "postgres" {
+  instance             = "postgres-instance"
+  name             = var.POSTGRESQL_DATABASE
   database_version = "POSTGRES_11"
   region           = var.region
   project          = var.project
@@ -104,7 +105,6 @@ locals {
 
 resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.postgres.name
-  name     = "me@example.com"
-  password  =
-  
-} */
+  name     = var.POSTGRESQL_USERNAME
+  password  = var.POSTGRESQL_PASSWORD  
+}

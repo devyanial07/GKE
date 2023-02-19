@@ -5,6 +5,11 @@ on:
     branches: [ "main" ]
   pull_request:
 
+env:
+  TF_VAR_POSTGRESQL_USERNAME: ${{ secrets.POSTGRESQL_USERNAME}}
+  TF_VAR_POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD}}
+  TF_VAR_POSTGRESQL_DATABASE: ${{ secrets.POSTGRESQL_DATABASE}}
+
 permissions:
   contents: read
 
