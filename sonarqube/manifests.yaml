@@ -129,7 +129,7 @@ metadata:
 spec:
   rules:
   - host: sonarqube.d-e-l-o.com
-    https:
+    http:
       paths:
       - path: /*
         pathType: ImplementationSpecific
