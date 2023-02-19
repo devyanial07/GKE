@@ -23,4 +23,8 @@ variable "cluster_name" {}
 
 variable "cluster_zones" {}
 
-variable "timeouts" {}
+variable "timeouts" {
+  type        = map(string)
+  description = "Timeout for cluster operations."
+  default     = {}
+}

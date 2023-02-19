@@ -25,10 +25,7 @@ provider "kubernetes" {
 
 
 module "gke" {
-  timeouts {
-    create = "5m"
-    update = "5m"
-  }
+  
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   #version                    = "21.1.0"
   project_id                 = var.project
@@ -80,6 +77,11 @@ module "gke" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+  }
+
+  timeouts {
+    create = "5m"
+    update = "5m"
   }
 
 }
