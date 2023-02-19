@@ -3,6 +3,11 @@ resource "google_compute_global_address" "sq_address" {
   project   =   var.project
 }
 
+resource "google_compute_global_address" "web_address" {
+  name = "web-address"
+  project   =   var.project
+}
+
 data "google_dns_managed_zone" "sq_name_zone" {
   name = "d-e-l-o-com."
   project   =   var.project
@@ -21,3 +26,12 @@ output "zone_sonarqube" {
 
   rrdatas = ["34.105.224.15"]
 } */
+
+resource "google_dns_record_set" "webapp" {
+  name         = "webapp.d-e-l-o.com."
+  managed_zone = ".d-e-l-o.com."
+  type         = "A"
+  ttl          = 300
+
+  rrdatas = ["34.105.224.15"]
+} 
