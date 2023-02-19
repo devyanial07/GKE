@@ -7,6 +7,7 @@ module "gke_stateful" {
   region                 = var.region
   cluster_zones          = var.cluster_zones
   cluster_name           = var.cluster_name
+  vpc_network_name       = var.vpc_network_name
   vpc_network            = var.vpc_network_name
   vpc_subnet             = "${var.vpc_network_name}-primary"
   vpc_subnet_pod         = "${var.vpc_network_name}-secondary-1"
