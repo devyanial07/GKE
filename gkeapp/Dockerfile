@@ -1,7 +1,7 @@
 FROM golang:1.19.2 as builder
 WORKDIR /app
 RUN go mod init hello-app
-COPY main.go ./
+#COPY main.go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-app
 
 FROM gcr.io/distroless/base-debian11
