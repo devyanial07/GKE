@@ -19,11 +19,11 @@ output "zone_sonarqube" {
     value = data.google_dns_managed_zone.sq_name_zone.name
 }
 
-/* resource "google_dns_record_set" "sq" {
-  name         = "sonarqube.d-e-l-o.com."
-  managed_zone = "d-e-l-o.com."
+resource "google_dns_record_set" "sq" {
+  name         = "sonarqube.${data.google_dns_managed_zone.sq_name_zone.name}"
+  managed_zone = data.google_dns_managed_zone.sq_name_zone.name
   type         = "A"
   ttl          = 300
 
   rrdatas = ["34.105.224.15"]
-} */
+}
