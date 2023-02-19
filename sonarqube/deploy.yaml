@@ -20,6 +20,19 @@ parameters:
   fstype: ext4
   replication-type: none
 ---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonar-config
+  namespace: sonarqube
+  labels:
+    app: sonar
+data:
+  SONARQUBE_JDBC_URL: "jdbc:postgresql://10.0.2.3:5432/postgres"
+  SONARQUBE_JDBC_USERNAME: "sonardbuser"
+  SONARQUBE_JDBC_PASSWORD: "sonardbpass"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -55,13 +68,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9000
-        env: 
-        - name: "SONARQUBE_JDBC_USERNAME"
-          value: ${{ env.POSTGRESQL_USERNAME}}
-        - name: "SONARQUBE_JDBC_PASSWORD"
-          value: ${{ env.POSTGRESQL_PASSWORD}}
-        - name: "SONARQUBE_JDBC_URL"
-          value: ${{ env.POSTGRESQL_JBDCURL}}
+        envFrom:
+        - configMapRef:
+            name: sonar-config
         volumeMounts:
         - name: app-pvc
           mountPath: "/opt/sonarqube/data/"
