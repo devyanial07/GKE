@@ -1,8 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sonarapp
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: sonar-pvc
-  namespace: sonarqube
+  namespace: sonarapp
 spec:
   accessModes:
     - ReadWriteOnce
@@ -24,7 +29,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sonar-config
-  namespace: sonarqube
+  namespace: sonarapp
   labels:
     app: sonar
 data:
@@ -36,7 +41,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sonar
-  namespace: sonarqube
+  namespace: sonarapp
   labels:
     app: sonar
 spec:
@@ -87,33 +92,34 @@ spec:
         persistentVolumeClaim:
           claimName: sonar-pvc
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: sqservice
-  namespace: sonarqube
-  labels:
-    app: sonar
-spec:
-  selector:
-    app: sonar
-  ports:
-    - protocol: TCP
-      port: 9000
----
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: managed-cert
-spec:
-  domains:
-    - sonarqube.d-e-l-o.com
----
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: sqservice
+#  namespace: sonarapp
+#  labels:
+#    app: sonar
+#spec:
+#  selector:
+#    app: sonar
+#  ports:
+#    - protocol: TCP
+#      port: 9000
+#---
+#apiVersion: networking.gke.io/v1
+#kind: ManagedCertificate
+#metadata:
+#  name: managed-cert
+#  namespace: sonarapp
+#spec:
+#  domains:
+#    - sonarqube.d-e-l-o.com
+#---
 #apiVersion: networking.k8s.io/v1
 #kind: Ingress
 #metadata:
 #  name: sonaringress
-#  namespace: sonarqube
+#  namespace: sonarapp
 #  annotations:
 #    kubernetes.io/ingress.class: "gce"
 #    kubernetes.io/ingress.global-static-ip-name: "sq-address"
