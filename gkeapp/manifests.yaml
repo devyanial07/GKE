@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+        - name: webapp
+          image: europe-west2-docker.pkg.dev/lofty-object-378217/webapp/stateless:latest #quay.io/fairwinds/k8s-workshop:latest
+          command: ["ruby", "app/app.rb"]
+          ports:
+          - containerPort: 8080
+            name: http
+          env:
+            - name: REDIS_HOST
+              value: 'redis-primary'
+            - name: REDIS_PORT
+              value: '6379'
+            - name: SECRET1
+              value:
+            - name: DEPENDENCY_URL
+              value:
+            - name: DEPENDENCY_REQUIRE_TLS
+              value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  namespace: webapp
+  labels:
+    app: webapp
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port:
+      targetPort:
+  selector:
+    app: webapp
+---
