@@ -66,19 +66,12 @@ module "gke" {
   }
 } 
 
-/* resource "helm_release" "sonarqube" {
-  name       = "sonarqube"
-  repository = "https://SonarSource.github.io/helm-chart-sonarqube/"
-  chart      = "sonarqube"
-  create_namespace = true
-  namespace  = "sonarqube"
-  timeout    = "600"
-
-  values = [
-    "${file("./helm_values/values.yaml")}"
-  ]
-} */
-
+output "gke_endpoint" {
+  value = ["${module.gke.endpoint}"]
+}
+/* locals {
+  gke = ["${module.gke.endpoint}"]
+} 
 resource "google_sql_database_instance" "postgres" {
   name             = "postgres-instance"
   database_version = "POSTGRES_11"
@@ -91,11 +84,13 @@ resource "google_sql_database_instance" "postgres" {
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
       dynamic "authorized_networks" {
+        for_each = local.gke
+        iterator = gke
         content {
           name  = "gke-endpoint"
-          value = module.gke.endpoint
+          value = gke.value
         }
       }
     }
   }
-}
+} */
