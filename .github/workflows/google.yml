@@ -102,5 +102,5 @@ jobs:
       run: |-
         kubectl version
 
-        kubectl delete -f sonarqube/deploy.yaml
+        kubectl apply -f sonarqube/deploy.yaml
 
