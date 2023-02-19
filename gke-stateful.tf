@@ -73,7 +73,7 @@ locals {
   gke = ["34.89.110.206"]
 } 
 resource "google_sql_database_instance" "postgres" {
-  instance             = "postgres-instance"
+  #instance             = "postgres-instance"
   name             = var.POSTGRESQL_DATABASE
   database_version = "POSTGRES_11"
   region           = var.region
