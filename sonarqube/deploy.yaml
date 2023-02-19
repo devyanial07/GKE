@@ -55,9 +55,13 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9000
-        envFrom:
-        - configMapRef:
-            name: sonar-config
+        env: 
+        - name: "SONARQUBE_JDBC_USERNAME"
+          value: ${{ env.POSTGRESQL_USERNAME}}
+        - name: "SONARQUBE_JDBC_PASSWORD"
+          value: ${{ env.POSTGRESQL_PASSWORD}}
+        - name: "SONARQUBE_JDBC_URL"
+          value: ${{ env.POSTGRESQL_JBDCURL}}
         volumeMounts:
         - name: app-pvc
           mountPath: "/opt/sonarqube/data/"
