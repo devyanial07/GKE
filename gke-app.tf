@@ -3,11 +3,11 @@ resource "google_service_account" "gke_sa_app" {
   display_name = "Service Account for gke"
 }
 
-/* provider "kubernetes_app" {
+provider "kubernetes" {
   host                   = "https://${module.gke_app.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.gke_app.ca_certificate)
-} */
+}
 
 module "gke_app" {
   depends_on  = [
@@ -31,7 +31,7 @@ module "gke_app" {
   issue_client_certificate   = false
   remove_default_node_pool   = true
   master_ipv4_cidr_block     = "10.0.1.0/28"
-  #kubernetes_version         = var.kubernetes_version
+  kubernetes_version         = "1.23.14-gke.1800"
   enable_vertical_pod_autoscaling = true
   grant_registry_access           = true
   enable_binary_authorization     = true
