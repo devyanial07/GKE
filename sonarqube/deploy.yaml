@@ -94,13 +94,9 @@ metadata:
   name: sqservice
   namespace: sonarqube
 spec:
-  selector:
-    app: mc-service
-  type: NodePort
   ports:
     - protocol: TCP
       port: 9000
-      targetPort: 9000
 ---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
