@@ -1,80 +1,84 @@
-FROM nginx:mainline as builder
+FROM yobasystems/alpine:3.16.2-armhf
 
-ARG ENABLED_MODULES
+ARG BUILD_DATE
+ARG VCS_REF
 
-RUN set -ex \
-    && if [ "$ENABLED_MODULES" = "" ]; then \
-        echo "No additional modules enabled, exiting"; \
-        exit 1; \
-    fi
+LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>" \
+    architecture="arm32v7/armhf" \
+    nginx-version="1.23.1" \
+    alpine-version="3.16.2" \
+    build="14-Oct-2022" \
+    org.opencontainers.image.title="alpine-nginx" \
+    org.opencontainers.image.description="Nginx Docker image running on Alpine Linux" \
+    org.opencontainers.image.authors="Dominic Taylor <dominic@yobasystems.co.uk>" \
+    org.opencontainers.image.vendor="Yoba Systems" \
+    org.opencontainers.image.version="v1.23.1" \
+    org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-nginx/" \
+    org.opencontainers.image.source="https://github.com/yobasystems/alpine-nginx" \
+    org.opencontainers.image.revision=$VCS_REF \
+    org.opencontainers.image.created=$BUILD_DATE
 
-COPY ./ /modules/
+ENV NGINX_VERSION=1.23.1
 
-RUN set -ex \
-    && apt update \
-    && apt install -y --no-install-suggests --no-install-recommends \
-                patch make wget mercurial devscripts debhelper dpkg-dev \
-                quilt lsb-release build-essential libxml2-utils xsltproc \
-                equivs git g++ libparse-recdescent-perl \
-    && XSLSCRIPT_SHA512="f7194c5198daeab9b3b0c3aebf006922c7df1d345d454bd8474489ff2eb6b4bf8e2ffe442489a45d1aab80da6ecebe0097759a1e12cc26b5f0613d05b7c09ffa *stdin" \
-    && wget -O /tmp/xslscript.pl https://hg.nginx.org/xslscript/raw-file/01dc9ba12e1b/xslscript.pl \
-    && if [ "$(cat /tmp/xslscript.pl | openssl sha512 -r)" = "$XSLSCRIPT_SHA512" ]; then \
-        echo "XSLScript checksum verification succeeded!"; \
-        chmod +x /tmp/xslscript.pl; \
-        mv /tmp/xslscript.pl /usr/local/bin/; \
-    else \
-        echo "XSLScript checksum verification failed!"; \
-        exit 1; \
-    fi \
-    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://hg.nginx.org/pkg-oss/ \
-    && cd pkg-oss \
-    && mkdir /tmp/packages \
-    && for module in $ENABLED_MODULES; do \
-        echo "Building $module for nginx-$NGINX_VERSION"; \
-        if [ -d /modules/$module ]; then \
-            echo "Building $module from user-supplied sources"; \
-            # check if module sources file is there and not empty
-            if [ ! -s /modules/$module/source ]; then \
-                echo "No source file for $module in modules/$module/source, exiting"; \
-                exit 1; \
-            fi; \
-            # some modules require build dependencies
-            if [ -f /modules/$module/build-deps ]; then \
-                echo "Installing $module build dependencies"; \
-                apt update && apt install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
-            fi; \
-            # if a module has a build dependency that is not in a distro, provide a
-            # shell script to fetch/build/install those
-            # note that shared libraries produced as a result of this script will
-            # not be copied from the builder image to the main one so build static
-            if [ -x /modules/$module/prebuild ]; then \
-                echo "Running prebuild script for $module"; \
-                /modules/$module/prebuild; \
-            fi; \
-            /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n $module $(cat /modules/$module/source); \
-            BUILT_MODULES="$BUILT_MODULES $(echo $module | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
-        elif make -C /pkg-oss/debian list | grep -P "^$module\s+\d" > /dev/null; then \
-            echo "Building $module from pkg-oss sources"; \
-            cd /pkg-oss/debian; \
-            make rules-module-$module BASE_VERSION=$NGINX_VERSION NGINX_VERSION=$NGINX_VERSION; \
-            mk-build-deps --install --tool="apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes" debuild-module-$module/nginx-$NGINX_VERSION/debian/control; \
-            make module-$module BASE_VERSION=$NGINX_VERSION NGINX_VERSION=$NGINX_VERSION; \
-            find ../../ -maxdepth 1 -mindepth 1 -type f -name "*.deb" -exec mv -v {} /tmp/packages/ \;; \
-            BUILT_MODULES="$BUILT_MODULES $module"; \
-        else \
-            echo "Don't know how to build $module module, exiting"; \
-            exit 1; \
-        fi; \
-    done \
-    && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
+RUN \
+  build_pkgs="build-base linux-headers openssl-dev pcre-dev wget zlib-dev" && \
+  runtime_pkgs="ca-certificates openssl pcre zlib tzdata git" && \
+  apk --no-cache add ${build_pkgs} ${runtime_pkgs} && \
+  cd /tmp && \
+  wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
+  tar xzf nginx-${NGINX_VERSION}.tar.gz && \
+  cd /tmp/nginx-${NGINX_VERSION} && \
+  ./configure \
+    --prefix=/etc/nginx \
+    --sbin-path=/usr/sbin/nginx \
+    --conf-path=/etc/nginx/nginx.conf \
+    --error-log-path=/var/log/nginx/error.log \
+    --http-log-path=/var/log/nginx/access.log \
+    --pid-path=/var/run/nginx.pid \
+    --lock-path=/var/run/nginx.lock \
+    --http-client-body-temp-path=/var/cache/nginx/client_temp \
+    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+    --user=nginx \
+    --group=nginx \
+    --with-http_ssl_module \
+    --with-http_realip_module \
+    --with-http_addition_module \
+    --with-http_sub_module \
+    --with-http_dav_module \
+    --with-http_flv_module \
+    --with-http_mp4_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_random_index_module \
+    --with-http_secure_link_module \
+    --with-http_stub_status_module \
+    --with-http_auth_request_module \
+    --with-mail \
+    --with-mail_ssl_module \
+    --with-file-aio \
+    --with-threads \
+    --with-stream \
+    --with-stream_ssl_module \
+    --with-stream_realip_module \
+    --with-http_slice_module \
+    --with-http_v2_module && \
+  make && \
+  make install && \
+  sed -i -e 's/#access_log  logs\/access.log  main;/access_log \/dev\/stdout;/' -e 's/#error_log  logs\/error.log  notice;/error_log stderr notice;/' /etc/nginx/nginx.conf && \
+  addgroup -S nginx && \
+  adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx && \
+  rm -rf /tmp/* && \
+  apk del ${build_pkgs} && \
+  rm -rf /var/cache/apk/*
 
-FROM nginx:mainline
-COPY --from=builder /tmp/packages /tmp/packages
-RUN set -ex \
-    && apt update \
-    && . /tmp/packages/modules.env \
-    && for module in $BUILT_MODULES; do \
-           apt install --no-install-suggests --no-install-recommends -y /tmp/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
-       done \
-    && rm -rf /tmp/packages \
-    && rm -rf /var/lib/apt/lists/
+COPY files/index.html /etc/nginx/html/
+COPY files/nginx.conf /etc/nginx/nginx.conf
+
+VOLUME ["/var/cache/nginx"]
+
+EXPOSE 80 443
+
+CMD ["nginx"]
