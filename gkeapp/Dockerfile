@@ -1,4 +1,4 @@
-FROM dockerfile/ubuntu
+FROM dockerfile/ubuntu:latest
 
 # Install Nginx.
 RUN \

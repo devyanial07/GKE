@@ -70,7 +70,7 @@ jobs:
         
         docker image ls
           
-    - name: build nginx
+    - name: Build nginx
       run: |-
         docker build .\
           --file /home/runner/work/GKE/GKE/gkeapp/Dockerfile \
