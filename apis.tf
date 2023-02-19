@@ -36,7 +36,7 @@ resource "google_project_iam_member" "gke_role" {
   project = var.project
 }
 
-resource "google_project_iam_member" "gke_role" {
+resource "google_project_iam_member" "gke_sarole" {
   for_each = toset([
     "roles/cloudsql.admin",
     "roles/secretmanager.secretAccessor",
