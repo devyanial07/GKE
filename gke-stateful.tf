@@ -1,7 +1,7 @@
-/* module "gke_stateful" {
-  /* depends_on  = [
+module "gke_stateful" {
+  depends_on  = [
         module.vpc_network
-    ] 
+    ]
   source                 = "./gke-stateful"
   project                = var.project
   region                 = var.region
@@ -13,4 +13,4 @@
   vpc_subnet_pod         = "${var.vpc_network_name}-secondary-1"
   vpc_subnet_svc         = "${var.vpc_network_name}-secondary-2"
   kubernetes_version     = var.kubernetes_version
-} */
+}
