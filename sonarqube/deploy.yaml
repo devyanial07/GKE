@@ -15,8 +15,6 @@ kind: StorageClass
 metadata:
   name: sonarqubesc
 provisioner: kubernetes.io/gce-pd
-volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Delete
 parameters:
   type: pd-standard
   fstype: ext4
