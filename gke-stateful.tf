@@ -70,7 +70,7 @@ output "gke_endpoint" {
   value = module.gke.endpoint
 } */
 locals {
-  gke = ["34.89.110.206/32"]
+  gke = ["34.89.110.206"]
 } 
 resource "google_sql_database_instance" "postgres" {
   name             = "postgres-instance"
