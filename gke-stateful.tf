@@ -1,7 +1,7 @@
 module "gke_stateful" {
-  depends_on  = [
+  /* depends_on  = [
         module.vpc_network
-    ]
+    ] */
   source                 = "./gke-stateful"
   project                = var.project
   region                 = var.region
