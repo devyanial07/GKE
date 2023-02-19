@@ -100,7 +100,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-
         kubectl version
 
-        
+        kubectl apply -f sonarqube/deploy.yaml
+
