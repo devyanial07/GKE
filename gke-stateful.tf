@@ -85,7 +85,7 @@ resource "google_sql_database_instance" "postgres" {
 
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
-      ipv4_enabled    = true
+      ipv4_enabled    = false
 
       dynamic "authorized_networks" {
         for_each = local.gke

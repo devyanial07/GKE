@@ -18,7 +18,7 @@ env:
   POSTGRESQL_JBDCURL:  ${{ secrets.POSTGRESQL_JBDCURL}}
 jobs:
   setup-build-publish-deploy:
-    name: build and push docker image
+    name: docker image, k8s manifests -> GKE
     runs-on: ubuntu-latest
     environment: production
 
