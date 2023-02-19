@@ -82,6 +82,6 @@ jobs:
       run: |-
         docker image ls
         
-        docker image push --all-tags "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+        docker push --all-tags "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
 
         docker push europe-west2-docker.pkg.dev/lofty-object-378217/europe-west2-docker.pkg.dev/lofty-object-378217/sonar-docker/sonarqube:latest
