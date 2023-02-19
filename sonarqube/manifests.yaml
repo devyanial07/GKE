@@ -138,6 +138,7 @@ spec:
             name: sqservice
             port: 
               number: 9000
+  - host: sonarqube.d-e-l-o.com
     https:
       paths:
       - path: /*
