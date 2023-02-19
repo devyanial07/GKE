@@ -3,7 +3,7 @@ resource "google_service_account" "gke_sa_app" {
   display_name = "Service Account for gke"
 }
 
-module "gke" {
+module "gke_app" {
   depends_on  = [
     module.project_api
   ]
