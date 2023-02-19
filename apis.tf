@@ -3,7 +3,6 @@ module "project_api" {
   project_id                  = var.project
   disable_services_on_destroy = false
   activate_apis = [
-    "dns.googleapis.com",
     "iam.googleapis.com",
     "iap.googleapis.com",
     "compute.googleapis.com",
@@ -14,6 +13,9 @@ module "project_api" {
     "artifactregistry.googleapis.com",
     "sqladmin.googleapis.com",
     "servicenetworking.googleapis.com",
-    "networkmanagement.googleapis.com"
+    "networkmanagement.googleapis.com",
+    "containerregistry.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "dns.googleapis.com"
   ]
 }
