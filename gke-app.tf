@@ -1,5 +1,5 @@
-resource "google_service_account" "gke_sa" {
-  account_id   = "gke-sa"
+resource "google_service_account" "gke_sa_app" {
+  account_id   = "gke-sa-app"
   display_name = "Service Account for gke"
 }
 
@@ -10,7 +10,7 @@ module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   #version                    = "21.1.0"
   project_id                 = var.project
-  name                       = var.cluster_name
+  name                       = "gke-app"
   region                     = var.region
   zones                      = var.cluster_zones
   network                    = var.vpc_network_name
@@ -49,7 +49,7 @@ module "gke" {
       image_type                = "COS_CONTAINERD"
       auto_repair               = true
       auto_upgrade              = true
-      service_account           = google_service_account.gke_sa.email
+      service_account           = google_service_account.gke_sa_app.email
       initial_node_count        = 1
       enable_secure_boot        = true
     },
@@ -61,16 +61,3 @@ module "gke" {
     ]
   }
 } 
-
-/* resource "helm_release" "sonarqube" {
-  name       = "sonarqube"
-  repository = "https://SonarSource.github.io/helm-chart-sonarqube/"
-  chart      = "sonarqube"
-  create_namespace = true
-  namespace  = "sonarqube"
-  timeout    = "600"
-
-  values = [
-    "${file("./helm_values/values.yaml")}"
-  ]
-} */
