@@ -2,11 +2,7 @@ resource "google_service_account" "gke_sa" {
   account_id   = "gke-sa"
   display_name = "Service Account for gke"
 }
-resource "google_project_iam_member" "gar_read" {
-  project = var.project
-  role    = "roles/artifactregistry.admin"
-  member  = "serviceAccount:${google_service_account.gke_sa.email}"
-}
+
 module "gke" {
   depends_on  = [
     module.project_api
