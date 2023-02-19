@@ -70,7 +70,7 @@ output "gke_endpoint" {
   sensitive = true
   value = ["${module.gke.endpoint}"]
 }
-locals {
+/* locals {
   gke = ["${module.gke.endpoint}"]
 } 
 resource "google_sql_database_instance" "postgres" {
@@ -94,4 +94,4 @@ resource "google_sql_database_instance" "postgres" {
       }
     }
   }
-}
+} */

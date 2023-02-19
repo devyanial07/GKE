@@ -11,6 +11,7 @@ module "project_api" {
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "domains.googleapis.com",
-    "artifactregistry.googleapis.com"
+    "artifactregistry.googleapis.com",
+    "sqladmin.googleapis.com"
   ]
 }
