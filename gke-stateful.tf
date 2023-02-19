@@ -53,6 +53,7 @@ module "gke" {
   grant_registry_access           = true
   enable_binary_authorization     = true
   node_metadata = "GKE_METADATA_SERVER"
+  master_authorized_networks      = []
 
   add_master_webhook_firewall_rules = true
   add_cluster_firewall_rules        = true
