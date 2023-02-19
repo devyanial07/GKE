@@ -101,7 +101,7 @@ jobs:
     - name: Deploy
       run: |-
 
-        kubectl -v
+        kubectl version
 
         ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest
         ./kustomize build . | kubectl apply -f -
