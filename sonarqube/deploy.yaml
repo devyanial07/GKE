@@ -110,22 +110,22 @@ spec:
   domains:
     - sonarqube.d-e-l-o.com
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: sonaringress
-  namespace: sonarqube
-  annotations:
-    kubernetes.io/ingress.class: "gce"
-    kubernetes.io/ingress.global-static-ip-name: "sq-address"
-    networking.gke.io/managed-certificates: managed-cert
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  rules:
-  - host: sonarqube.d-e-l-o.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: sqservice
-          servicePort: 9000
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: sonaringress
+#  namespace: sonarqube
+#  annotations:
+#    kubernetes.io/ingress.class: "gce"
+#    kubernetes.io/ingress.global-static-ip-name: "sq-address"
+#    networking.gke.io/managed-certificates: managed-cert
+#    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#spec:
+#  rules:
+#  - host: sonarqube.d-e-l-o.com
+#    http:
+#      paths:
+#      - path: /
+#        backend:
+#          serviceName: sqservice
+#          servicePort: 9000
