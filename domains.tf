@@ -1,12 +1,6 @@
-resource "google_compute_global_address" "sq_ip_address" {
+resource "google_compute_global_address" "sq_address" {
   name = "sq-address"
   project   =   var.project
-  region  = var.region
-}
-
-output "ip_sonarqube" {
-    description = "sonarqube public ip"
-    value = google_compute_address.sq_ip_address.id
 }
 
 data "google_dns_managed_zone" "sq_name_zone" {
