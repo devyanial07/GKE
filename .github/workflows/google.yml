@@ -63,7 +63,13 @@ jobs:
       run: |-
         docker build .\
           --file /home/runner/work/GKE/GKE/gkeapp/Dockerfile \
-          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/stateless:latest" \
+          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/nginx/stateless:latest" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+        
+        docker build .\
+          --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
+          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
         
@@ -74,7 +80,9 @@ jobs:
       run: |-
         docker image ls
         
-        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/stateless:latest"
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/nginx/stateless:latest"
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
