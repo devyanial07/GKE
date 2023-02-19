@@ -64,7 +64,7 @@ jobs:
     #    cluster_name: ${{ env.GKE_CLUSTER }}
     #    location: ${{ env.GKE_ZONE }}
     - name: gcloud auth
-      run: gcloud auth configure-docker europe-west2-docker.pkg.dev && docker-credential-gcr configure-docker europe-west2-docker.pkg.dev
+      run: gcloud auth configure-docker europe-west2-docker.pkg.dev && gcloud auth configure-docker gcr.io.pkg.dev
 
     # Build the Docker image
     - name: Build
