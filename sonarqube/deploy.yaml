@@ -52,13 +52,13 @@ spec:
             limits:
               cpu: 2000m
               memory: 2048Mi
-          volumeMounts:
-          - mountPath: "/opt/sonarqube/data/"
-            name: sonar-data
-            subPath: data
-          - mountPath: "/opt/sonarqube/extensions/"
-            name: sonar-extensions
-            subPath: extensions
+          #volumeMounts:
+          #- mountPath: "/opt/sonarqube/data/"
+          #  name: sonar-data
+          #  subPath: data
+          #- mountPath: "/opt/sonarqube/extensions/"
+          #  name: sonar-extensions
+          #  subPath: extensions
           env:
           - name: "SONARQUBE_JDBC_USERNAME"
             value: ${{ env.POSTGRESQL_USERNAME}}
@@ -69,13 +69,13 @@ spec:
           ports:
           - containerPort: 9000
             protocol: TCP
-      volumes:
-      - name: sonar-data
-        persistentVolumeClaim:
-          claimName: sonar-data
-      - name: sonar-extensions
-        persistentVolumeClaim:
-          claimName: sonar-extensions
+      #volumes:
+      #- name: sonar-data
+      #  persistentVolumeClaim:
+      #    claimName: sonar-data
+      #- name: sonar-extensions
+      #  persistentVolumeClaim:
+      #    claimName: sonar-extensions
 ---
 apiVersion: v1
 kind: Service
