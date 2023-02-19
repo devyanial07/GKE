@@ -4,7 +4,7 @@ resource "google_service_account" "gke_sa" {
 }
 resource "google_project_iam_member" "gar_read" {
   project = var.project
-  role    = "roles/artifactregistry.reader"
+  role    = "roles/artifactregistry.admin"
   member  = "serviceAccount:${google_service_account.gke_sa.email}"
 }
 module "gke" {
