@@ -17,7 +17,8 @@ module "project_api" {
     "containerregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "dns.googleapis.com",
-    "cloudbuild.googleapis.com"
+    "cloudbuild.googleapis.com",
+    "containerfilesystem.googleapis.com"
   ]
 }
 
