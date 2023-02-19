@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform plan and apply IaC'
 
 on:
   push:
