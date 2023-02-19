@@ -63,6 +63,8 @@ jobs:
     #  with:
     #    cluster_name: ${{ env.GKE_CLUSTER }}
     #    location: ${{ env.GKE_ZONE }}
+    - name: gcloud auth
+      run: gcloud auth configure-docker europe-west2-docker.pkg.dev
 
     # Build the Docker image
     - name: Build
