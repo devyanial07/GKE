@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: quay.io/fairwinds/k8s-workshop:latest #europe-west2-docker.pkg.dev/lofty-object-378217/web-app/stateless:latest
+          image: quay.io/fairwinds/k8s-workshop:latest
           command: ["ruby", "app/app.rb"]
           ports:
           - containerPort: 8080
@@ -29,10 +29,10 @@ spec:
               value: 'redis-primary'
             - name: REDIS_PORT
               value: '6379'
-            - name: SECRET1
-              value:
-            - name: DEPENDENCY_URL
-              value:
+            #- name: SECRET1
+            #  value:
+            #- name: DEPENDENCY_URL
+            #  value:
             - name: DEPENDENCY_REQUIRE_TLS
               value: "true"
 ---
