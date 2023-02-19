@@ -102,5 +102,4 @@ jobs:
       run: |-
         kubectl version
 
-        kubectl apply -f sonarqube/deploy.yaml
-        kubectl describe configmaps postgres -n sonarqube
+        kubectl delete -f sonarqube/deploy.yaml
