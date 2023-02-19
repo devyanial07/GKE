@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: europe-west2-docker.pkg.dev/lofty-object-378217/web-app/stateless:latest #quay.io/fairwinds/k8s-workshop:latest
+          image: quay.io/fairwinds/k8s-workshop:latest #europe-west2-docker.pkg.dev/lofty-object-378217/web-app/stateless:latest
           command: ["ruby", "app/app.rb"]
           ports:
           - containerPort: 8080
