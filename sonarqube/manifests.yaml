@@ -138,6 +138,15 @@ spec:
             name: sqservice
             port: 
               number: 9000
+    https:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: sqservice
+            port: 
+              number: 9000
 ---
 apiVersion: v1
 kind: Service
