@@ -6,6 +6,7 @@ module "project_api" {
     "dns.googleapis.com",
     "iam.googleapis.com",
     "iap.googleapis.com",
-    "compute.googleapis.com"
+    "compute.googleapis.com",
+    "container.googleapis.com"
   ]
 }
