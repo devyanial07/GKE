@@ -29,7 +29,7 @@ output "zone_sonarqube" {
 
 resource "google_dns_record_set" "webapp" {
   name         = "webapp.d-e-l-o.com."
-  managed_zone = "d-e-l-o.com."
+  managed_zone = "d-e-l-o-com"
   type         = "A"
   ttl          = 300
 
