@@ -72,7 +72,7 @@ output "gke_endpoint" {
 locals {
   gke = ["34.89.110.206"]
 } 
-resource "google_sql_database_instance" "postgres" {
+/* resource "google_sql_database_instance" "postgres" {
   name             = "postgres-instance"
   database_version = "POSTGRES_11"
   region           = var.region
@@ -89,7 +89,7 @@ resource "google_sql_database_instance" "postgres" {
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
       require_ssl     = "false"
-      
+
       dynamic "authorized_networks" {
         for_each = local.gke
         iterator = gke
@@ -101,3 +101,10 @@ resource "google_sql_database_instance" "postgres" {
     }
   }
 }
+
+resource "google_sql_user" "postgres_user" {
+  instance = google_sql_database_instance.postgres.name
+  name     = "me@example.com"
+  password  =
+  
+} */
