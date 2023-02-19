@@ -105,6 +105,7 @@ spec:
   ports:
     - protocol: TCP
       port: 9000
+  type: NodePort
 ---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
