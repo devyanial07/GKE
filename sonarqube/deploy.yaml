@@ -119,7 +119,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.global-static-ip-name: "sq-address"
-    networking.gke.io/managed-certificates: managed-cert
+    networking.gke.io/managed-certificates: "managed-cert"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   rules:
