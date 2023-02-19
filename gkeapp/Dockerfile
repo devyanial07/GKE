@@ -22,7 +22,7 @@
 # EXPOSE 80
 # EXPOSE 443
 
-FROM nginx:1.22.1-alpine-slim
+FROM nginx:latest
 
 ENV NJS_VERSION   0.7.9
 
