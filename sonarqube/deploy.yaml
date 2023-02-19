@@ -93,7 +93,11 @@ kind: Service
 metadata:
   name: sqservice
   namespace: sonarqube
+  labels:
+    app: sonar
 spec:
+  selector:
+    app: sonar
   ports:
     - protocol: TCP
       port: 9000
