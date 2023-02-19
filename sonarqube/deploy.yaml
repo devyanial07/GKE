@@ -74,21 +74,36 @@ spec:
         persistentVolumeClaim:
           claimName: sonar-extensions
 ---
-
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - sonarqube.d-e-l-o.com
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: sonar
-  namespace: sonar
+  name: sonaringress
+  namespace: sonarqube
   annotations:
     kubernetes.io/ingress.class: "gce"
-    #nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.global-static-ip-name: "sq-address"
+    networking.gke.io/managed-certificates: managed-cert
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  rules:
-  - host: sonarqube.d-e-l-o.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: sonar
-          servicePort: 9000
+  defaultBackend:
+    service:
+      name: mc-service
+      port:
+        number: 9000
+#spec:
+#  rules:
+#  - host: sonarqube.d-e-l-o.com
+#    http:
+#      paths:
+#      - path: /
+#        backend:
+#          serviceName: sonar
+#          servicePort: 9000
