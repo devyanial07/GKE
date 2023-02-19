@@ -10,7 +10,7 @@ output "ip_sonarqube" {
 }
 
 data "google_dns_managed_zone" "sq_name_zone" {
-  name = "d-e-l-o.com."
+  name = "d-e-l-o-com."
   project   =   var.project
 }
 
