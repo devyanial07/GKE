@@ -34,8 +34,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app: sonar
+    app: sonar
   template:
     metadata:
       labels:
