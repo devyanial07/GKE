@@ -3,6 +3,12 @@ resource "google_service_account" "gke_sa_app" {
   display_name = "Service Account for gke"
 }
 
+provider "kubernetes_app" {
+  host                   = "https://${module.gke_app.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke_app.ca_certificate)
+}
+
 module "gke_app" {
   depends_on  = [
     module.project_api
@@ -40,7 +46,7 @@ module "gke_app" {
 
   node_pools = [
     {
-      name                      = "default-node-pool"
+      name                      = "default-node-pool-app"
       machine_type              = "e2-medium"
       node_locations            = "europe-west2-a"
       min_count                 = 1

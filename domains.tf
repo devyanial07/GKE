@@ -21,5 +21,5 @@ resource "google_dns_record_set" "sq" {
   type         = "A"
   ttl          = 300
 
-  rrdatas = ["8.8.8.8"]
+  rrdatas = ["34.105.224.15"]
 }
