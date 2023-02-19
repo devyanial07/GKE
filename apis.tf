@@ -13,6 +13,7 @@ module "project_api" {
     "domains.googleapis.com",
     "artifactregistry.googleapis.com",
     "sqladmin.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
+    "networkmanagement.googleapis.com"
   ]
 }
