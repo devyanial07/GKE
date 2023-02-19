@@ -26,11 +26,11 @@ provider "kubernetes" {
 
 module "gke" {
   
-  timeouts {
+  /* timeouts {
     create = "5m"
-  }
+  } */
   source                     = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
-  version                    = "21.1.0"
+  #version                    = "21.1.0"
   project_id                 = var.project
   name                       = var.cluster_name
   region                     = var.region
