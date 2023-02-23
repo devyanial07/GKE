@@ -11,5 +11,7 @@ RUN npm install -g -s --no-progress yarn && yarn install --prod
 
 ENV APP_COMMIT_REF=${COMMIT_REF} \
     APP_BUILD_DATE=${BUILD_DATE}
+
+CMD [ "yarn", "install" ]
 CMD [ "yarn", "start" ]
 EXPOSE 3000
