@@ -30,7 +30,8 @@ resource "google_project_iam_member" "gke_role" {
     "roles/storage.admin",
     "roles/artifactregistry.admin",
     "roles/container.clusterAdmin",
-    "roles/container.developer"
+    "roles/container.developer",
+    "roles/storage.legacyObjectReader"
   ])
   role = each.key
   member = "serviceAccount:${google_service_account.gke_sa.email}"
@@ -45,6 +46,7 @@ resource "google_project_iam_member" "gke_sarole" {
     "roles/storage.admin",
     "roles/artifactregistry.admin",
     "roles/container.clusterAdmin",
+    "roles/storage.legacyObjectReader",
     "roles/container.developer"
   ])
   role = each.key
@@ -60,7 +62,8 @@ resource "google_project_iam_member" "cb_role" {
     "roles/storage.admin",
     "roles/artifactregistry.admin",
     "roles/container.clusterAdmin",
-    "roles/container.developer"
+    "roles/container.developer",
+    "roles/storage.legacyObjectReader"
   ])
   role = each.key
   member = "serviceAccount:813165853992@cloudbuild.gserviceaccount.com"
@@ -75,7 +78,8 @@ resource "google_project_iam_member" "clsvc_role" {
     "roles/storage.admin",
     "roles/artifactregistry.admin",
     "roles/container.clusterAdmin",
-    "roles/container.developer"
+    "roles/container.developer",
+    "roles/storage.legacyObjectReader"
   ])
   role = each.key
   member = "serviceAccount:813165853992@cloudservices.gserviceaccount.com"
