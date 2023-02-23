@@ -51,7 +51,7 @@ spec:
             - name: PGHOST
               value: 'sonarqube'
             - name: PGPORT
-              value: 5432
+              value: '5432'
             - name: PGDATABASE
               value: 'gkeapp'
             - name: PGUSER
