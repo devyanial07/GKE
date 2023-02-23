@@ -78,6 +78,15 @@ spec:
               cpu: 250m
               memory: 500Mi
 ---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert-gkeapp
+  namespace: gkeapp
+spec:
+  domains:
+    - gkeapp.d-e-l-o.com
+---
 #apiVersion: extensions/v1beta1
 #kind: Ingress
 #metadata:
@@ -93,13 +102,13 @@ metadata:
   namespace: gkeapp
   annotations:
     kubernetes.io/ingress.class: "gce"
-    #kubernetes.io/ingress.global-static-ip-name: "sq-address"
-    #networking.gke.io/managed-certificates: "managed-cert"
-    #nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.global-static-ip-name: "gkeapp-address"
+    networking.gke.io/managed-certificates: "managed-cert-gkeapp"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   rules:
-  - #host: sonarqube.d-e-l-o.com
-  - http:
+  - host: gkeapp.d-e-l-o.com
+    http:
       paths:
       - path: /*
         pathType: ImplementationSpecific
