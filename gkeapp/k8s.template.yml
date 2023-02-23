@@ -48,16 +48,16 @@ spec:
               value: 'production'
             - name: PORT
               value: '3000'
-            #- name: PGHOST
-            #  value: '${db_host}'
-            #- name: PGPORT
-            #  value: '${db_port}'
-            #- name: PGDATABASE
-            #  value: '${db_name}'
-            #- name: PGUSER
-            #  value: '${db_username}'
-            #- name: PGPASSWORD
-            #  value: '${db_password}'
+            - name: PGHOST
+              value: 'sonarqube'
+            - name: PGPORT
+              value: 5432
+            - name: PGDATABASE
+              value: 'gkeapp'
+            - name: PGUSER
+              value: 'gkeapp'
+            - name: PGPASSWORD
+              value: 'gkeapp'
           ports:
             - containerPort: 3000
               protocol: TCP
