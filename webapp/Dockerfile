@@ -3,8 +3,8 @@ FROM ruby:2
 RUN apt-get update && \
     apt-get install -y net-tools
 
-COPY gkeapp/Gemfile /app/Gemfile
-COPY gkeapp/app.rb /app/app.rb
+COPY webapp/Gemfile /app/Gemfile
+COPY webapp/app.rb /app/app.rb
 
 RUN cd /app; bundle install
 
