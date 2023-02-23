@@ -106,14 +106,17 @@ metadata:
     networking.gke.io/managed-certificates: "managed-cert-gkeapp"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  rules:
-  - host: gkeapp.d-e-l-o.com
-    http:
-      paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: service-gkeapp
-            port: 
-              number: 80
+  backend:
+    serviceName: service-gkeapp
+    servicePort: 80
+#  rules:
+#  - host: gkeapp.d-e-l-o.com
+#    http:
+#      paths:
+#      - path: /*
+#        pathType: ImplementationSpecific
+#        backend:
+#          service:
+#            name: service-gkeapp
+#            port: 
+#              number: 80
