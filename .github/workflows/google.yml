@@ -105,4 +105,4 @@ jobs:
       run: |-
         kubectl apply -f sonarqube/manifests.yaml
         kubectl apply -f gkeapp/k8s.template.yml
-#        kubectl apply -f webapp/manifests.k8s.yml
+        kubectl apply -f webapp/manifests.k8s.yml
