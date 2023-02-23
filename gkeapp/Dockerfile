@@ -1,5 +1,6 @@
 FROM node:10-alpine
-
+RUN sudo apt update
+RUN sudo apt install nodejs npm
 ARG COMMIT_REF
 ARG BUILD_DATE
 
