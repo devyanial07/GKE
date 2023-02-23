@@ -1,6 +1,7 @@
 FROM node:10-alpine
-RUN sudo apt update
-RUN sudo apt install nodejs npm
+RUN apt-get update
+RUN apt-get install nodejs npm
+RUN nodejs --version
 ARG COMMIT_REF
 ARG BUILD_DATE
 
