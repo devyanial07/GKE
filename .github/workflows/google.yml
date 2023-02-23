@@ -103,6 +103,6 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy manifests to gke
       run: |-
-        kubectl apply -f sonarqube/manifests.yaml
-        kubectl apply -f gkeapp/k8s.template.yml
-        kubectl apply -f webapp/manifests.k8s.yml
+        kubectl delete -f sonarqube/manifests.yaml
+        kubectl delete -f gkeapp/k8s.template.yml
+        kubectl delete -f webapp/manifests.k8s.yml
