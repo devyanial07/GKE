@@ -65,7 +65,7 @@ jobs:
         
         docker image ls
           
-    - name: Build nginx
+    - name: Build gkeapp
       run: |-
         docker build .\
           --file /home/runner/work/GKE/GKE/gkeapp/Dockerfile \
@@ -77,6 +77,17 @@ jobs:
 
         docker image ls
 
+    - name: Build webapp
+      run: |-
+        docker build .\
+          --file /home/runner/work/GKE/GKE/webapp/Dockerfile \
+          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+        
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest"
+
+        docker image ls
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
@@ -94,3 +105,4 @@ jobs:
       run: |-
         kubectl apply -f sonarqube/manifests.yaml
         kubectl apply -f gkeapp/k8s.template.yml
+        kubectl apply -f webapp/manifests.k8s.yml
