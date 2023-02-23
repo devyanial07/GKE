@@ -11,3 +11,10 @@ resource "google_artifact_registry_repository" "web_repo" {
   description   = "webapp docker repository"
   format        = "DOCKER"
 }
+
+resource "google_artifact_registry_repository" "webapp_repo" {
+  location      = var.region
+  repository_id = "web"
+  description   = "webapp gke docker repository"
+  format        = "DOCKER"
+}
