@@ -85,7 +85,7 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
         
-        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest"
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest"
 
         docker image ls
     # Get the GKE credentials so we can deploy to the cluster
@@ -105,4 +105,4 @@ jobs:
       run: |-
         kubectl apply -f sonarqube/manifests.yaml
         kubectl apply -f gkeapp/k8s.template.yml
-        kubectl apply -f webapp/manifests.k8s.yml
+#        kubectl apply -f webapp/manifests.k8s.yml
