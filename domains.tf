@@ -41,11 +41,11 @@ resource "google_dns_record_set" "webapp" {
   rrdatas = ["34.117.179.184"]
 }
 
-/* resource "google_dns_record_set" "gke_webapp" {
+resource "google_dns_record_set" "gke_webapp" {
   name         = "gkeapp.d-e-l-o.com."
   managed_zone = "d-e-l-o-com"
   type         = "A"
   ttl          = 300
 
-  rrdatas = ["34.117.179.184"]
-}  */
+  rrdatas = ["34.111.100.222"]
+} 
