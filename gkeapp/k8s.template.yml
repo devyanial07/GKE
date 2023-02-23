@@ -41,16 +41,16 @@ spec:
               value: 'production'
             - name: PORT
               value: '3000'
-            - name: PGHOST
-              value: '${db_host}'
-            - name: PGPORT
-              value: '${db_port}'
-            - name: PGDATABASE
-              value: '${db_name}'
-            - name: PGUSER
-              value: '${db_username}'
-            - name: PGPASSWORD
-              value: '${db_password}'
+            #- name: PGHOST
+            #  value: '${db_host}'
+            #- name: PGPORT
+            #  value: '${db_port}'
+            #- name: PGDATABASE
+            #  value: '${db_name}'
+            #- name: PGUSER
+            #  value: '${db_username}'
+            #- name: PGPASSWORD
+            #  value: '${db_password}'
           ports:
             - containerPort: 3000
               protocol: TCP
@@ -71,11 +71,11 @@ spec:
               cpu: 250m
               memory: 500Mi
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: ingress-gkeapp
-spec:
-  backend:
-    serviceName: service-gkeapp
-    servicePort: 80
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: ingress-gkeapp
+#spec:
+#  backend:
+#    serviceName: service-gkeapp
+#    servicePort: 80
