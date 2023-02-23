@@ -65,17 +65,17 @@ jobs:
         
         docker image ls
           
-#    - name: Build nginx
-#      run: |-
-#        docker build .\
-#          --file /home/runner/work/GKE/GKE/gkeapp/Dockerfile \
-#          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest" \
-#          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-#          --build-arg GITHUB_REF="$GITHUB_REF" \
-#        
-#        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest"
-#
-#        docker image ls
+    - name: Build nginx
+      run: |-
+        docker build .\
+          --file /home/runner/work/GKE/GKE/gkeapp/Dockerfile \
+          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+        
+        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web-app/stateless:latest"
+
+        docker image ls
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
