@@ -93,6 +93,7 @@ jobs:
       run: |-
         kubectl apply -f sonarqube/manifests.yaml
         kubectl apply -f webapp/manifests.k8s.yml
-        kubectl delete ingress ingress-gkeapp -n gkeapp
-        kubectl delete svc service-gkeapp -n gkeapp
-        kubectl delete deployment deployment-gkeapp -n gkeapp
+        kubectl delete ingress ingress-gkeapp -n default
+        kubectl delete svc service-gkeapp -n default
+        kubectl delete deployment deployment-gkeapp -n default
+        kubectl delete ns gkeapp
