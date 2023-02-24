@@ -1,4 +1,4 @@
-resource "google_service_account" "gke_sa" {
+/* resource "google_service_account" "gke_sa" {
   account_id   = "gke-sa"
   display_name = "Service Account for gke"
 }
@@ -99,4 +99,4 @@ resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.postgres.name
   name     = var.POSTGRESQL_USERNAME
   password  = var.POSTGRESQL_PASSWORD  
-}
+} */
