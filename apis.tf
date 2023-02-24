@@ -1,4 +1,4 @@
-module "project_api" {
+m/* odule "project_api" {
   source = "terraform-google-modules/project-factory/google//modules/project_services"
   project_id                  = var.project
   disable_services_on_destroy = false
@@ -22,7 +22,7 @@ module "project_api" {
   ]
 }
 
-/* resource "google_project_iam_member" "gke_role" {
+resource "google_project_iam_member" "gke_role" {
   for_each = toset([
     "roles/cloudsql.admin",
     "roles/secretmanager.secretAccessor",
