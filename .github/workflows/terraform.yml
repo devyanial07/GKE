@@ -38,8 +38,8 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform unlock
-        run: terraform force-unlock -force 1677198667771270
+      #- name: Terraform unlock
+      #  run: terraform force-unlock -force 1677198667771270
 
       - name: Terraform Plan
         run: terraform plan -var-file=variables.tfvars
