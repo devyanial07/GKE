@@ -1,4 +1,4 @@
-resource "google_compute_global_address" "sq_address" {
+/* resource "google_compute_global_address" "sq_address" {
   name = "sq-address"
   project   =   var.project
 }
@@ -15,4 +15,4 @@ resource "google_dns_record_set" "webapp" {
   ttl          = 300
 
   rrdatas = ["34.117.179.184"]
-}
+} */
