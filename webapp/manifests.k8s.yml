@@ -9,6 +9,7 @@ metadata:
   name: webapp
   namespace: webapp
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: webapp
