@@ -22,7 +22,7 @@ module "project_api" {
   ]
 }
 
-resource "google_project_iam_member" "gke_role" {
+/* resource "google_project_iam_member" "gke_role" {
   for_each = toset([
     "roles/cloudsql.admin",
     "roles/secretmanager.secretAccessor",
@@ -85,3 +85,4 @@ resource "google_project_iam_member" "clsvc_role" {
   member = "serviceAccount:813165853992@cloudservices.gserviceaccount.com"
   project = var.project
 }
+ */
