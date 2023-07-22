@@ -52,8 +52,3 @@ jobs:
 
     - name: Deploy manifests to gke
       run: |-
-        kubectl apply -f wordpress/wordpress-volumeclaim.yaml
-        kubectl apply -f wordpress/wordpress_cloudsql.yaml
-        kubectl apply -f wordpress/wordpress-service.yaml
-        kubectl apply -f wordpress/ingress.yaml
-#        
