@@ -32,9 +32,18 @@ resource "google_sql_database_instance" "mysql" {
     }
   }
 }
+
+resource "google_sql_database" "wp_champ_db" {
+  name     = "wp-champ-db"
+  instance = google_sql_database_instance.mysql.name
+  charset = "utf8"
+  collation = "utf8_general_ci"
+  deletion_policy = "ABANDON"
+}
+
 /*
 resource "google_sql_user" "postgres_user" {
-  instance = google_sql_database_instance.postgres.name
+  instance = google_sql_database_instance.mysql.name
   name     = var.MYSQL_USERNAME
   password  = var.MYSQL_PASSWORD  
 } 
