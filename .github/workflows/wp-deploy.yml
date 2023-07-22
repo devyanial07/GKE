@@ -1,4 +1,4 @@
-name: docker image build, push and k8s manifests deploy
+name: WP deploy
 
 on:
   push:
