@@ -48,13 +48,11 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: create secret from json and envsbust
       run: |-
-        kubectl create secret generic cloudsql-db-credentials --from-literal username=$MYSQL_USERNAME --from-literal password=$pwd --namespace wordpress
-        
-        kubectl create secret generic cloudsql-instance-credentials --from-file wp-sa.json --namespace wordpress
+        echo $wpsa
 
 
     - name: Deploy manifests to gke
       run: |-
         kubectl apply -f wordpress/manifests.yaml
-        kubectl delete -f wordpress/wordpress_cloudsql.yaml
-        kubectl delete -f wordpress/wordpress-service.yaml
+        kubectl apply -f wordpress/wordpress_cloudsql.yaml
+        kubectl apply -f wordpress/wordpress-service.yaml
