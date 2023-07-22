@@ -1,0 +1,10 @@
+ POSTGRESQL_USERNAME: ${{ secrets.POSTGRESQL_USERNAME}}
+#   POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD}}
+#   POSTGRESQL_DATABASE: ${{ secrets.POSTGRESQL_DATABASE}}
+#   POSTGRESQL_JBDCURL:  ${{ secrets.POSTGRESQL_JBDCURL}}
+# jobs:
+
+echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
+
+#         echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+        
