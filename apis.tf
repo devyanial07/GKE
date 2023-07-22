@@ -21,6 +21,8 @@ module "project_api" {
     "containerfilesystem.googleapis.com"
   ]
 }
+
+/*
 resource "google_project_iam_member" "wordpress_role" {
   for_each = toset([
     "roles/cloudsql.client "
@@ -29,7 +31,7 @@ resource "google_project_iam_member" "wordpress_role" {
   member = "serviceAccount:cloudsql-proxy@champ-392921.iam.gserviceaccount.com"
   project = var.project
 }
-/*
+
 resource "google_project_iam_member" "gke_sarole" {
   for_each = toset([
     "roles/cloudsql.admin",

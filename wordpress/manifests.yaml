@@ -41,7 +41,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysql
-                  key: $key
+                  key: $pwd
           ports:
             - containerPort: 3306
               name: mysql
