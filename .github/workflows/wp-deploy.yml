@@ -5,13 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: champ-392921
-  GAR_LOCATION: europe-west2 # TODO: update region of the Artifact Registry
-  GKE_CLUSTER: ${{ secrets.GKE}}   # TODO: update to cluster name
-  GKE_ZONE: europe-west2-a   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  #REPOSITORY: sonar-docker # TODO: update to Artifact Registry docker repository
-  IMAGE: sonarqube
+  #PROJECT_ID: champ-392921
   MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME}}
   MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD}}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE}}
