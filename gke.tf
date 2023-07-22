@@ -62,13 +62,13 @@ module "gke" {
       machine_type              = "e2-medium"
       node_locations            = "europe-west2-a"
       min_count                 = 1
-      max_count                 = 2
+      max_count                 = 3
       disk_type                 = "pd-standard"
       image_type                = "COS_CONTAINERD"
       auto_repair               = true
       auto_upgrade              = true
       service_account           = google_service_account.gke_sa.email
-      initial_node_count        = 1
+      initial_node_count        = 2
       enable_secure_boot        = true
     },
   ]
