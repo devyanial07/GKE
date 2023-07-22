@@ -32,7 +32,7 @@ resource "google_sql_database_instance" "mysql" {
     }
   }
 }
-/*
+
 resource "google_sql_database" "wp_champ_db" {
   name     = "wp-champ-db"
   instance = google_sql_database_instance.mysql.name
@@ -46,8 +46,9 @@ resource "google_sql_user" "wordpress_champ_user" {
   instance = "${google_sql_database_instance.mysql.name}"
   host = "%"
   password = var.MYSQL_PASSWORD 
-} 
+}
 
+/*
 
 resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.mysql.name
