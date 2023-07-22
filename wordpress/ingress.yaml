@@ -1,7 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: wordpress
   name: wp-ingress
   annotations:
     networking.gke.io/managed-certificates: "champ"

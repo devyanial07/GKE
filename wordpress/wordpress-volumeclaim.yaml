@@ -1,7 +1,6 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  namespace: wordpress
   name: wordpress-volumeclaim
 spec:
   accessModes:
