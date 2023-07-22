@@ -29,7 +29,7 @@ jobs:
         uses: google-github-actions/auth@v0
         with:
           token_format: 'access_token'
-          workload_identity_provider: 'projects/352111373069/locations/global/workloadIdentityPools/github-wif-pool/*'
+          workload_identity_provider: 'projects/352111373069/locations/global/workloadIdentityPools/github-wif-pool/providers/githubwif'
           #'projects/813165853992/locations/global/workloadIdentityPools/cicd-pool-git/providers/cicd-provider'
           service_account: 'github-sa@champ-392921.iam.gserviceaccount.com'
 
