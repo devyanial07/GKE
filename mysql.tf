@@ -38,7 +38,7 @@ resource "google_sql_database" "wp_champ_db" {
   instance = google_sql_database_instance.mysql.name
   charset = "utf8"
   collation = "utf8_general_ci"
-  deletion_policy = "ABANDON"
+  #deletion_policy = "ABANDON"
 }
 
 resource "google_sql_user" "wordpress_champ_user" {
