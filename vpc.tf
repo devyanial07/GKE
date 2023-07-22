@@ -1,4 +1,4 @@
-/* module "vpc_network" {
+module "vpc_network" {
   depends_on  = [
     module.project_api
   ]
@@ -32,4 +32,3 @@
     ]
   }
 }
- */
