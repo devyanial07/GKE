@@ -1,95 +1,95 @@
-name: docker image build, push and k8s manifests deploy
-
-on:
-  push:
-    branches: [ "main" ]
-
-env:
-  PROJECT_ID: lofty-object-378217
-  GAR_LOCATION: europe-west2
-  GKE_CLUSTER: gkeapp
-  GKE_ZONE: europe-west2-a
-  DEPLOYMENT_NAME: gke-test
-  REPOSITORY: sonar-docker
-  IMAGE: sonarqube
-  POSTGRESQL_USERNAME: ${{ secrets.POSTGRESQL_USERNAME}}
-  POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD}}
-  POSTGRESQL_DATABASE: ${{ secrets.POSTGRESQL_DATABASE}}
-  POSTGRESQL_JBDCURL:  ${{ secrets.POSTGRESQL_JBDCURL}}
-jobs:
-  setup-build-publish-deploy:
-    name: docker image, k8s manifests -> GKE
-    runs-on: ubuntu-latest
-    environment: production
-
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    # Configure Workload Identity Federation and generate an access token.
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        token_format: 'access_token'
-        workload_identity_provider: 'projects/813165853992/locations/global/workloadIdentityPools/cicd-pool-git/providers/cicd-provider'
-        service_account: 'github-sa@lofty-object-378217.iam.gserviceaccount.com'
-
-    - name: Docker configuration
-      run: |-
-        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
-
-        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-        
-    - name: gcloud auth
-      run: |-
-        gcloud auth configure-docker
-
-        gcloud auth configure-docker europe-west2-docker.pkg.dev
-
-        gcloud auth configure-docker gcr.io
-
-    - name: Build sonarqube
-      run: |-
-        docker build .\
-          --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
-          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-
-        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
-        
-        docker image ls
-
-    - name: Build webapp
-      run: |-
-        docker build .\
-          --file /home/runner/work/GKE/GKE/webapp/Dockerfile \
-          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-        
-        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest"
-
-        docker image ls
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v0
-      with:
-        cluster_name: gkeapp
-        location: europe-west2
-    
-    # Set up kustomize
-    - name: Set up Kustomize
-      run: |-
-        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-        chmod u+x ./kustomize
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy manifests to gke
-      run: |-
-#        kubectl apply -f sonarqube/manifests.yaml
-#        kubectl apply -f webapp/manifests.k8s.yml
+#name: docker image build, push and k8s manifests deploy
+#
+#on:
+#  push:
+#    branches: [ "main" ]
+#
+#env:
+#  PROJECT_ID: lofty-object-378217
+#  GAR_LOCATION: europe-west2
+#  GKE_CLUSTER: gkeapp
+#  GKE_ZONE: europe-west2-a
+#  DEPLOYMENT_NAME: gke-test
+#  REPOSITORY: sonar-docker
+#  IMAGE: sonarqube
+#  POSTGRESQL_USERNAME: ${{ secrets.POSTGRESQL_USERNAME}}
+#  POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD}}
+#  POSTGRESQL_DATABASE: ${{ secrets.POSTGRESQL_DATABASE}}
+#  POSTGRESQL_JBDCURL:  ${{ secrets.POSTGRESQL_JBDCURL}}
+#jobs:
+#  setup-build-publish-deploy:
+#    name: docker image, k8s manifests -> GKE
+#    runs-on: ubuntu-latest
+#    environment: production
+#
+#    permissions:
+#      contents: 'read'
+#      id-token: 'write'
+#
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v3
+#
+#    # Configure Workload Identity Federation and generate an access token.
+#    - id: 'auth'
+#      name: 'Authenticate to Google Cloud'
+#      uses: 'google-github-actions/auth@v0'
+#      with:
+#        token_format: 'access_token'
+#        workload_identity_provider: 'projects/813165853992/locations/global/workloadIdentityPools/cicd-pool-git/providers/cicd-provider'
+#        service_account: 'github-sa@lofty-object-378217.iam.gserviceaccount.com'
+#
+#    - name: Docker configuration
+#      run: |-
+#        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
+#
+#        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+#        
+#    - name: gcloud auth
+#      run: |-
+#        gcloud auth configure-docker
+#
+#        gcloud auth configure-docker europe-west2-docker.pkg.dev
+#
+#        gcloud auth configure-docker gcr.io
+#
+#    - name: Build sonarqube
+#      run: |-
+#        docker build .\
+#          --file /home/runner/work/GKE/GKE/sonarqube/Dockerfile \
+#          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest" \
+#          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+#          --build-arg GITHUB_REF="$GITHUB_REF" \
+#
+#        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:latest"
+#        
+#        docker image ls
+#
+#    - name: Build webapp
+#      run: |-
+#        docker build .\
+#          --file /home/runner/work/GKE/GKE/webapp/Dockerfile \
+#          --tag "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest" \
+#          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+#          --build-arg GITHUB_REF="$GITHUB_REF" \
+#        
+#        docker push "europe-west2-docker.pkg.dev/$PROJECT_ID/web/webapp:latest"
+#
+#        docker image ls
+#    # Get the GKE credentials so we can deploy to the cluster
+#    - name: Set up GKE credentials
+#      uses: google-github-actions/get-gke-credentials@v0
+#      with:
+#        cluster_name: gkeapp
+#        location: europe-west2
+#    
+#    # Set up kustomize
+#    - name: Set up Kustomize
+#      run: |-
+#        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+#        chmod u+x ./kustomize
+#    # Deploy the Docker image to the GKE cluster
+#    - name: Deploy manifests to gke
+#      run: |-
+##        kubectl apply -f sonarqube/manifests.yaml
+##        kubectl apply -f webapp/manifests.k8s.yml
