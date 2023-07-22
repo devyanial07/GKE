@@ -49,7 +49,6 @@ resource "google_sql_user" "wordpress_champ_user" {
 }
 
 /*
-
 resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.mysql.name
   name     = var.MYSQL_USERNAME
