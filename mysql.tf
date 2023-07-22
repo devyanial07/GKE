@@ -1,7 +1,7 @@
 #locals {
 #  gke = ["34.89.110.206"]
 #} 
-
+/*
 resource "google_sql_database_instance" "mysql" {
   #instance             = "postgres-instance"
   name             = var.MYSQL_DATABASE
@@ -28,7 +28,7 @@ resource "google_sql_database_instance" "mysql" {
           name  = "gke-endpoint"
           value = gke.value
         }
-      } */
+      } 
     }
   }
 }
@@ -48,7 +48,7 @@ host = "%"
 #password = var.MYSQL_PASSWORD 
 } 
 
-/*
+
 resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.mysql.name
   name     = var.MYSQL_USERNAME
