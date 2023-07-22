@@ -46,9 +46,11 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     # Deploy the Docker image to the GKE cluster
-    - name: create secret from json
+    - name: create secret from json and envsbust
       run: |-
         kubectl create secret generic cloudsql-instance-credentials --from-file $wpsa
+
+        cat wordpress/wordpress_cloudsql.yaml.template | envsubst > wordpress/wordpress_cloudsql.yaml
 
     - name: Deploy manifests to gke
       run: |-
