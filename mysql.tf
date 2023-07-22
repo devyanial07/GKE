@@ -46,28 +46,5 @@ resource "google_sql_user" "wordpress_champ_user" {
   name = var.MYSQL_USERNAME
   instance = "${google_sql_database_instance.mysql_instance.name}"
   host = "%"
-  password = var.pwd 
+  password = var.MYSQL_PASSWORD 
 }
-
-/*
-resource "google_sql_user" "postgres_user" {
-  instance = google_sql_database_instance.mysql.name
-  name     = var.MYSQL_USERNAME
-  password  = var.pwd  
-} 
-
-resource “google_sql_database_instance” “master” {
-name = "instance_name"
-database_version = "MYSQL_5_7"
-region = "${var.region}"
-settings {
-tier = "db-n1-standard-2"
-}
-}
-resource "google_sql_database" “database” {
-    name = "database_name"
-instance = "${google_sql_database_instance.master.name}"
-charset = "utf8"
-collation = "utf8_general_ci"
-}
-*/
