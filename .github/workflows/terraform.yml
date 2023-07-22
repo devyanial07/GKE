@@ -30,7 +30,7 @@ jobs:
         with:
           token_format: 'access_token'
           workload_identity_provider: 'projects/813165853992/locations/global/workloadIdentityPools/cicd-pool-git/providers/cicd-provider'
-          service_account: 'github-sa@lofty-object-378217.iam.gserviceaccount.com'
+          service_account: 'github-sa@champ-392921.iam.gserviceaccount.com'
 
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v1
