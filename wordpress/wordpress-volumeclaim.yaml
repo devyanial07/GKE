@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: wordpress-volumeclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Gi
+# [END gke_wordpress_persistent_disks_wordpress_volumeclaim_persistentvolumeclaim_wordpress_volumeclaim]
+---

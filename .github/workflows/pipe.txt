@@ -121,3 +121,6 @@ jobs:
         gcloud auth configure-docker europe-west2-docker.pkg.dev
 
         gcloud auth configure-docker gcr.io
+
+
+#        kubectl create secret generic cloudsql-instance-credentials --l ${{ secrets.pwd}}
