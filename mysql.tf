@@ -19,7 +19,7 @@ resource "google_sql_database_instance" "mysql" {
 
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
-      ipv4_enabled    = false
+      #ipv4_enabled    = false
 
       /* dynamic "authorized_networks" {
         for_each = local.gke
@@ -40,6 +40,13 @@ resource "google_sql_database" "wp_champ_db" {
   collation = "utf8_general_ci"
   deletion_policy = "ABANDON"
 }
+
+resource "google_sql_user" "wordpress_champ_user" {
+name = "wordpress"
+instance = "${google_sql_database_instance.mysql.name}"
+host = "%"
+#password = var.MYSQL_PASSWORD 
+} 
 
 /*
 resource "google_sql_user" "postgres_user" {
@@ -62,9 +69,4 @@ instance = "${google_sql_database_instance.master.name}"
 charset = "utf8"
 collation = "utf8_general_ci"
 }
-resource "google_sql_user" "users" {
-name = "root"
-instance = "${google_sql_database_instance.master.name}"
-host = "%"
-password = "XXXXXXXXX"
-} */
+*/
