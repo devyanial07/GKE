@@ -37,7 +37,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: terraform init
+        run: |-
+          terraform init
+        #  terraform state rm RESOURCE. ADDRESS 
 
       #- name: Terraform unlock
       #  run: terraform force-unlock -force 1677198667771270
