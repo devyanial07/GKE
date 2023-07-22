@@ -10,7 +10,7 @@ resource "google_sql_database_instance" "mysql" {
   project          = var.project
 
   settings {
-    tier = "db-f1-small"
+    tier = "db-f1-micro"
     availability_type = "ZONAL"
 
     location_preference {
