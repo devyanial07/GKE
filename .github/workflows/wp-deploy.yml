@@ -48,4 +48,6 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy manifests to gke
       run: |-
+        echo $pwd
+        echo $wpsa
         kubectl apply -f wordpress/manifests.yaml
