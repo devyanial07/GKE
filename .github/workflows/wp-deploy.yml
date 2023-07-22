@@ -9,6 +9,7 @@ env:
   MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME}}
   pwd: ${{ secrets.pwd}}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE}}
+  wpsa: ${{ secrets.WP_SA }}
 jobs:
   setup-build-publish-deploy:
     name: WP deploy
@@ -47,4 +48,4 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy manifests to gke
       run: |-
-        kubectl apply -f wordpress/manifests.yaml
+        kubectl apply -f wordpress/manifests.yaml --env key=$pwd
