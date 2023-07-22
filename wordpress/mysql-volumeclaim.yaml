@@ -1,6 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
+  namespace: wordpress
   name: mysql-volumeclaim
 spec:
   accessModes:
