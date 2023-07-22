@@ -47,4 +47,4 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy manifests to gke
       run: |-
-#        kubectl apply -f wordpress/manifests.yaml
+        kubectl apply -f wordpress/manifests.yaml
