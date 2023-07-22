@@ -30,7 +30,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysql
-                  key: ${{ secrets.MYSQL_PASSWORD }}
+                  key: ${{ TF_VAR_MYSQL_PASSWORD }}
           ports:
             - containerPort: 3306
               name: mysql
