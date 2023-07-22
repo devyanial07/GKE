@@ -79,42 +79,5 @@ module "gke" {
     ]
   }
 } 
-locals {
-  gke = ["34.89.110.206"]
-} 
-resource "google_sql_database_instance" "postgres" {
-  #instance             = "postgres-instance"
-  name             = var.POSTGRESQL_DATABASE
-  database_version = "POSTGRES_11"
-  region           = var.region
-  project          = var.project
 
-  settings {
-    tier = "db-f1-micro"
-    availability_type = "ZONAL"
-
-    location_preference {
-      zone = "europe-west2-a"
-    }
-
-    ip_configuration {
-      private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
-      ipv4_enabled    = false
-
-      dynamic "authorized_networks" {
-        for_each = local.gke
-        iterator = gke
-        content {
-          name  = "gke-endpoint"
-          value = gke.value
-        }
-      }
-    }
-  }
-}
-
-resource "google_sql_user" "postgres_user" {
-  instance = google_sql_database_instance.postgres.name
-  name     = var.POSTGRESQL_USERNAME
-  password  = var.POSTGRESQL_PASSWORD  
-} */
+*/

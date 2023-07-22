@@ -29,8 +29,8 @@ variable "timeouts" {
   default     = {}
 }
 
-variable "POSTGRESQL_DATABASE" {}
+variable "MYSQL_DATABASE" {}
 
-variable "POSTGRESQL_PASSWORD" {}
+variable "MYSQL_PASSWORD" {}
 
-variable "POSTGRESQL_USERNAME" {}
+variable "MYSQL_USERNAME" {}
