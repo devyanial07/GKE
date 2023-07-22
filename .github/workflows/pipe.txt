@@ -127,3 +127,9 @@ jobs:
 kubectl create secret generic cloudsql-instance-credentials --from-file "C:\Users\Devyani\Documents\WCIT\wp-sa.json"
 
 kubectl create secret generic cloudsql-db-credentials --from-literal username=$MYSQL_USERNAME --from-literal password=$pwd
+
+================
+
+        kubectl create secret generic cloudsql-db-credentials --namespace=wordpress --from-literal username=$MYSQL_USERNAME --from-literal password=$pwd
+
+        kubectl create secret generic cloudsql-instance-credentials --namespace=wordpress --from-file wp-sa.json
