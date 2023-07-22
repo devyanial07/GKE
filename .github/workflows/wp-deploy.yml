@@ -57,7 +57,7 @@ jobs:
         kubectl delete -f wordpress/mysql-service.yaml        
         kubectl delete -f wordpress/wordpress-volumeclaim.yaml        
         kubectl delete -f wordpress/wordpress.yaml
-        kubectl delete -f wordpress/manifests.yaml  
-        kubectl delete -f wordpress/wordpress_cloudsql.yaml
-        kubectl delete -f wordpress/wordpress-service.yaml
-        kubectl delete -f wordpress/ingress.yaml        
+        kubectl apply -f wordpress/manifests.yaml  
+        kubectl apply -f wordpress/wordpress_cloudsql.yaml
+        kubectl apply -f wordpress/wordpress-service.yaml
+        kubectl apply -f wordpress/ingress.yaml        
