@@ -20,7 +20,7 @@ resource "google_project_iam_member" "gke_role" {
   project = var.project
 }
 
-
+## GKE instance ##
 module "gke" {
   depends_on  = [
     module.project_api

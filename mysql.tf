@@ -1,7 +1,7 @@
-#locals {
-#  gke = ["34.89.110.206"]
-#} 
-/*
+locals {
+  gke = ["35.189.124.160"]
+} 
+
 resource "google_sql_database_instance" "mysql" {
   #instance             = "postgres-instance"
   name             = var.MYSQL_DATABASE
@@ -19,20 +19,20 @@ resource "google_sql_database_instance" "mysql" {
 
     ip_configuration {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
-      #ipv4_enabled    = false
+      ipv4_enabled    = false
 
-      /* dynamic "authorized_networks" {
+      dynamic "authorized_networks" {
         for_each = local.gke
         iterator = gke
         content {
           name  = "gke-endpoint"
           value = gke.value
         }
-      } 
+      }
     }
   }
 }
-
+/*
 resource "google_sql_database" "wp_champ_db" {
   name     = "wp-champ-db"
   instance = google_sql_database_instance.mysql.name
@@ -42,10 +42,10 @@ resource "google_sql_database" "wp_champ_db" {
 }
 
 resource "google_sql_user" "wordpress_champ_user" {
-name = "wordpress"
-instance = "${google_sql_database_instance.mysql.name}"
-host = "%"
-#password = var.MYSQL_PASSWORD 
+  name = "wordpress"
+  instance = "${google_sql_database_instance.mysql.name}"
+  host = "%"
+  password = var.MYSQL_PASSWORD 
 } 
 
 
