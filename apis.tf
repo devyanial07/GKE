@@ -21,7 +21,7 @@ module "project_api" {
     "containerfilesystem.googleapis.com"
   ]
 }
-/*
+
 resource "google_project_iam_member" "gke_role" {
   for_each = toset([
     "roles/cloudsql.admin",
@@ -37,7 +37,7 @@ resource "google_project_iam_member" "gke_role" {
   member = "serviceAccount:${google_service_account.gke_sa.email}"
   project = var.project
 }
-
+/*
 resource "google_project_iam_member" "gke_sarole" {
   for_each = toset([
     "roles/cloudsql.admin",

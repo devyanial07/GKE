@@ -1,8 +1,8 @@
-/* resource "google_compute_global_address" "sq_address" {
-  name = "sq-address"
+resource "google_compute_global_address" "champ_address" {
+  name = "wordpress-champ-address"
   project   =   var.project
 }
-
+/* 
 resource "google_compute_global_address" "web_address" {
   name = "web-address"
   project   =   var.project
