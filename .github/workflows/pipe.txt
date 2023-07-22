@@ -134,7 +134,7 @@ kubectl create secret generic cloudsql-db-credentials --from-literal username=$M
 
         kubectl create secret generic cloudsql-instance-credentials --namespace=wordpress --from-file wp-sa.json
 
-        kubectl apply -f wordpress/manifests.yaml  
-        kubectl apply -f wordpress/wordpress_cloudsql.yaml
-        kubectl apply -f wordpress/wordpress-service.yaml
-        kubectl apply -f wordpress/ingress.yaml 
+        kubectl delete -f wordpress/manifests.yaml  
+        kubectl delete -f wordpress/wordpress_cloudsql.yaml
+        kubectl delete -f wordpress/wordpress-service.yaml
+        kubectl delete -f wordpress/ingress.yaml 
