@@ -6,7 +6,7 @@ metadata:
   annotations:
     networking.gke.io/managed-certificates: "champ"
     kubernetes.io/ingress.class: "gce"
-    #networking.gke.io/v1beta1.FrontendConfig: "sslpolicy"
+    networking.gke.io/v1beta1.FrontendConfig: "sslpolicy"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     #kubernetes.io/ingress.global-static-ip-name: "lb-ip"
 spec:
