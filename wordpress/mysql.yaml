@@ -37,4 +37,3 @@ spec:
           persistentVolumeClaim:
             claimName: mysql-volumeclaim
 # [END gke_wordpress_persistent_disks_mysql_deployment_mysql]
----

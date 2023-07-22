@@ -10,4 +10,3 @@ spec:
     requests:
       storage: 200Gi
 # [END gke_wordpress_persistent_disks_wordpress_volumeclaim_persistentvolumeclaim_wordpress_volumeclaim]
----

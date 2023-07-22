@@ -3,3 +3,11 @@ kind: Namespace
 metadata:
   name: wordpress
 ---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  namespace: wordpress
+  name: champ 
+spec:
+  domains:
+    - projectchamp.info
