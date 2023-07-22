@@ -47,8 +47,7 @@ jobs:
       
       - name: Test script
         run: |-
-          echo $TF_VAR_MYSQL_PASSWORD
-        #  echo ${var.MYSQL_PASSWORD}
+          echo ${{ secrets.MYSQL_PASSWORD}}
 
       - name: Terraform Apply
         #if: github.ref == 'refs/heads/"main"'

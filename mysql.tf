@@ -8,7 +8,8 @@ resource "google_sql_database_instance" "mysql" {
   database_version = "MYSQL_8_0"
   region           = var.region
   project          = var.project
-
+  deletion_protection = false
+  
   settings {
     tier = "db-f1-micro"
     availability_type = "ZONAL"
