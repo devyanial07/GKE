@@ -52,9 +52,9 @@ jobs:
 
         cat wordpress/wordpress_cloudsql.yaml.template | envsubst > wordpress/wordpress_cloudsql.yaml
 
-        kubectl create secret generic cloudsql-db-credentials  --from-env-file=username=$MYSQL_USERNAME --from-env-file=password=$pwd
+        kubectl create secret generic cloudsql-db-credentials --from-literal username=wordpress --from-literal password=$pwd
 
-        
+
     - name: Deploy manifests to gke
       run: |-
         kubectl apply -f wordpress/manifests.yaml
