@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "champ-392921",
+  "private_key_id": "60f039482f4629ec4696621a83d4ed2eeca45039",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDKFnaClX8ifvwT\nml3n8QepQDNrmT744Els8O0+oyXW96Fa+Qru2hvyg0v8RM2XQk2XB8379odJL1P3\nMyIUqmtSB1wZDSQTH3kBy3KZB7Z9ohFidS6BAyWPWBFo0P4TQLEd0t5v+BOnvc95\nwaIjs+c/rrBBElwUWjnLF7KZ3bsmtEfwTzfHngLu4Bu0kP+oFa1g+7mI3Y6aBf+D\nsp2GL3mkSitjdKfD8YzOF0iGR+ezBvzWyXEUREXk9S1AL4g046pi170qLI8dFbKY\nw0+dkaNA6CEy+SuklD6pD3c3rdvzo5mZkrCXEQB6JaFOKz0XJqMOI9MHr3GWPl+1\n1yoOtl4ZAgMBAAECggEACT8xYYTDKjoqwR/fW6FTAyrRn4MF11/15CL7DBJthRJU\nIwRBvI+k1zosRCkGyjzJrZc5FOYhJxdgDW/cx5rLqdd13pyUEb7vK8aaIgfxEPsV\nNg7cF6Gj+pTiSQxFD+72G8H+FRwCFDsSbwUN7PnKo0aUQIn9Rh4hxln5fWJgsaLZ\n1YEeSly1PrkG2PyQPFMoFZV+Cq2WIHRGghTaLZmKKpYlsyGEzAxtpDudNo+2QK2J\nM2tSzfZOyxy/ys5bBEJvTAvlCGveJgFBWii7ptZHhpI9OWjtNfOlesdiRlTOeX37\nHtv+8JshSKKS9EzZRbZkZK497YJGrFom0LNFQpQtIQKBgQDm/3WdWHtKmptxvxiZ\nny0oxrsx9FGB+JbnVWGhjowq2fvb4mbVLqjnjTRP/Qb6FhTewOcuEN5xjj9xBzcP\nWa529BpiJsJif68x0UEGV24hG3zDTItv5iIIHIR+JGWD+7ilVtNRhtcVphvTobEP\nWZA7pzZW6vA7q4C2ioSSEYV98QKBgQDf9fRyrNuDYpDOlLvMuMcEuIJAwJCtCQmY\nE2T1smKYxeHz9wPiHVI7uUcSC+VSZoURsIGVbxS/9rV8vvy2hoaoy4pnpG3RXcmV\n+r6NLdB/tF5NLSpNkHy4JTcoTwM2HZG76NgaT7ahHGaMkcCUmtmEJNG7DOo4kuPO\ncgWoisfaqQKBgAwBTs2EobO44UdCFTc2rJQn7+aiufG1R7JyH4bT77jyZ0KAO7Ps\nnt6Z2hQmJEyvBRqmj903BziDmgx3wYbMtGJ+QTjEpumTlTlTlLuNo62Yzh0gR0bj\ngPVG9iPQJG59kJUXNBhSl68KWPvgtWEE2JghEpPl1eJkAWZ7QHSO8I8hAoGBAKGK\nP5qjceYvpzFKeLcupGaUS2c3PmOA/EmT26OY2qNFQDh/eG6VJaZseoXazLsFtX/P\n53gI2leoNLnY7GEfYWvI/HjLUmbMlkW2ydD9NcGXMNnL9RJjYIJWXZWWgEN9SovW\nZGF+E8XbvWAxFU5a7v/wqtKXey35TZWwCsLJ72OZAoGBAMufgQ/wNbOJzqXCoKO3\nfp624M3IJ3UF+UuW63SdLDBmU74yYavikOK1csK2Iy3geW2e0CUKZA9/wTd/tEA7\nwHmESGjXa62OYVmzWBko+25TQ1VF+6u2CEjdqJFV+ED/HqFS8Hd1FJLyncAMsqUv\nNfA+QE2sI7xhu+advDikyE9V\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloudsql-proxy@champ-392921.iam.gserviceaccount.com",
+  "client_id": "110663331676624252767",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudsql-proxy%40champ-392921.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
