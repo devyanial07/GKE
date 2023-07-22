@@ -2,14 +2,14 @@ locals {
   gke = ["35.189.124.160"]
 } 
 
-resource "google_sql_database_instance" "mysql" {
+resource "google_sql_database_instance" "mysql_instance" {
   #instance             = "postgres-instance"
-  name             = var.MYSQL_DATABASE
+  name             = "${var.MYSQL_DATABASE}-wp"
   database_version = "MYSQL_8_0"
   region           = var.region
   project          = var.project
   deletion_protection = false
-  
+
   settings {
     tier = "db-f1-micro"
     availability_type = "ZONAL"
@@ -35,16 +35,16 @@ resource "google_sql_database_instance" "mysql" {
 }
 
 resource "google_sql_database" "wp_champ_db" {
-  name     = "wp-champ-db"
-  instance = google_sql_database_instance.mysql.name
+  name     = var.MYSQL_DATABASE
+  instance = google_sql_database_instance.mysql_instance.name
   charset = "utf8"
   collation = "utf8_general_ci"
   #deletion_policy = "ABANDON"
 }
 
 resource "google_sql_user" "wordpress_champ_user" {
-  name = "wordpress"
-  instance = "${google_sql_database_instance.mysql.name}"
+  name = var.MYSQL_USERNAME
+  instance = "${google_sql_database_instance.mysql_instance.name}"
   host = "%"
   password = var.MYSQL_PASSWORD 
 }
