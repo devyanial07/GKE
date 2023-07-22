@@ -1,7 +1,25 @@
+## GKE SA ##
+
 resource "google_service_account" "gke_sa" {
   account_id   = "champ-gke-sa"
   display_name = "Service Account for gke"
 }
+resource "google_project_iam_member" "gke_role" {
+  for_each = toset([
+    "roles/cloudsql.admin",
+    "roles/secretmanager.secretAccessor",
+    "roles/datastore.owner",
+    "roles/storage.admin",
+    "roles/artifactregistry.admin",
+    "roles/container.clusterAdmin",
+    "roles/container.developer"
+    #"roles/storage.legacyObjectReader"
+  ])
+  role = each.key
+  member = "serviceAccount:${google_service_account.gke_sa.email}"
+  project = var.project
+}
+
 /* 
 module "gke" {
   depends_on  = [
