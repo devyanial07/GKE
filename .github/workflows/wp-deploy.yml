@@ -7,9 +7,9 @@ on:
 env:
   #PROJECT_ID: champ-392921
   MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME}}
-  pwd: ${{ secrets.pwd}}
+  pwd: ${{ secrets.PWD}}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE}}
-  wpsa: ${{ secrets.wpsa }}
+  wpsa: ${{ secrets.WPSA }}
 jobs:
   setup-build-publish-deploy:
     name: WP deploy
@@ -58,6 +58,6 @@ jobs:
     - name: Deploy manifests to gke
       run: |-
         kubectl apply -f wordpress/manifests.yaml
-        kubectl create -f wordpress/wordpress_cloudsql.yaml
-        kubectl create -f wordpress/wordpress-service.yaml
+        kubectl delete -f wordpress/wordpress_cloudsql.yaml
+        kubectl delete -f wordpress/wordpress-service.yaml
 #        kubectl create -f wordpress/wordpress_cloudsql.yaml
