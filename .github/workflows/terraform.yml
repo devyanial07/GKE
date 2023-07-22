@@ -44,6 +44,11 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -var-file=variables.tfvars
+      
+      - name: Test script
+        run: |-
+          echo $TF_VAR_MYSQL_PASSWORD
+          echo ${var.MYSQL_PASSWORD}
 
       - name: Terraform Apply
         #if: github.ref == 'refs/heads/"main"'
