@@ -41,7 +41,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysql
-                  key: $env.pwd
+                  key: ${{env.MYSQL_PASSWORD}}
           ports:
             - containerPort: 3306
               name: mysql
