@@ -20,7 +20,7 @@ resource "google_project_iam_member" "gke_role" {
   project = var.project
 }
 
-/* 
+
 module "gke" {
   depends_on  = [
     module.project_api
@@ -62,7 +62,7 @@ module "gke" {
       machine_type              = "e2-medium"
       node_locations            = "europe-west2-a"
       min_count                 = 1
-      max_count                 = 1
+      max_count                 = 2
       disk_type                 = "pd-standard"
       image_type                = "COS_CONTAINERD"
       auto_repair               = true
@@ -79,5 +79,3 @@ module "gke" {
     ]
   }
 } 
-
-*/
