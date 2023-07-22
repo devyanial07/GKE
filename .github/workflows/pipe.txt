@@ -123,4 +123,5 @@ jobs:
         gcloud auth configure-docker gcr.io
 
 
-#        kubectl create secret generic cloudsql-instance-credentials --l ${{ secrets.pwd}}
+#        kubectl create secret generic cloudsql-instance-credentials --from-file  ${{ secrets.pwd}}
+kubectl create secret generic cloudsql-instance-credentials --from-file "C:\Users\Devyani\Documents\WCIT\wp-sa.json"
