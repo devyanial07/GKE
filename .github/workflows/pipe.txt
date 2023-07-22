@@ -105,3 +105,19 @@ jobs:
         kubectl apply -f sonarqube/manifests.yaml
         kubectl apply -f gkeapp/k8s.template.yml
 #        kubectl apply -f webapp/manifests.k8s.yml
+
+
+
+    - name: Docker configuration
+      run: |-
+        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
+
+        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+        
+    - name: gcloud auth
+      run: |-
+        gcloud auth configure-docker
+
+        gcloud auth configure-docker europe-west2-docker.pkg.dev
+
+        gcloud auth configure-docker gcr.io
