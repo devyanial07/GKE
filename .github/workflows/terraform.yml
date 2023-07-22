@@ -7,7 +7,7 @@ on:
 
 env:
   TF_VAR_MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME}}
-  TF_VAR_MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD}}
+  TF_VAR_MYSQL_PASSWORD: ${{ secrets.pwd}}
   TF_VAR_MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE}}
 
 permissions:

@@ -46,14 +46,14 @@ resource "google_sql_user" "wordpress_champ_user" {
   name = var.MYSQL_USERNAME
   instance = "${google_sql_database_instance.mysql_instance.name}"
   host = "%"
-  password = var.MYSQL_PASSWORD 
+  password = var.pwd 
 }
 
 /*
 resource "google_sql_user" "postgres_user" {
   instance = google_sql_database_instance.mysql.name
   name     = var.MYSQL_USERNAME
-  password  = var.MYSQL_PASSWORD  
+  password  = var.pwd  
 } 
 
 resource “google_sql_database_instance” “master” {
