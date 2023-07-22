@@ -9,7 +9,7 @@ env:
   MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME}}
   pwd: ${{ secrets.pwd}}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE}}
-  wpsa: ${{ secrets.WP_SA }}
+  wpsa: ${{ secrets.wpsa }}
 jobs:
   setup-build-publish-deploy:
     name: WP deploy
@@ -50,12 +50,15 @@ jobs:
       run: |-
         kubectl create secret generic cloudsql-db-credentials --from-literal username=$MYSQL_USERNAME --from-literal password=$pwd
 
-        kubectl create secret generic cloudsql-instance-credentials --from-literal $wpsa
+        jq ‘.build=env.wpsa’ >> tmp.json
+
+        kubectl create secret generic cloudsql-instance-credentials --from-literal tmp.json
         
         cat wordpress/wordpress_cloudsql.yaml.template | envsubst > wordpress/wordpress_cloudsql.yaml
 
     - name: Deploy manifests to gke
       run: |-
-        pwd
-#        kubectl apply -f wordpress/manifests.yaml
+        kubectl apply -f wordpress/manifests.yaml
+        kubectl create -f wordpress/wordpress_cloudsql.yaml
+        kubectl create -f wordpress/wordpress-service.yaml
 #        kubectl create -f wordpress/wordpress_cloudsql.yaml
