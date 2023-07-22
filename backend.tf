@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "tfstate_delo"
-    prefix  = "gke"
+    bucket  = "wp-champ-backend"
+    prefix  = "champ-wordpress-gke"
   }
 }
