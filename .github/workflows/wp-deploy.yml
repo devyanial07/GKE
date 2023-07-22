@@ -47,9 +47,7 @@ jobs:
         chmod u+x ./kustomize
     # Deploy the Docker image to the GKE cluster
     - name: create secret from json and envsbust
-      run: |-        
-        kubectl create secret generic cloudsql-instance-credentials --from-file wp-sa.json
-
+      run: |-
         cat wordpress/wordpress_cloudsql.yaml.template | envsubst > wordpress/wordpress_cloudsql.yaml
 
         kubectl create secret generic cloudsql-db-credentials --from-literal username=wordpress --from-literal password=$pwd
@@ -60,4 +58,3 @@ jobs:
         kubectl apply -f wordpress/manifests.yaml
         kubectl delete -f wordpress/wordpress_cloudsql.yaml
         kubectl delete -f wordpress/wordpress-service.yaml
-#        kubectl create -f wordpress/wordpress_cloudsql.yaml
