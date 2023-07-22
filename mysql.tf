@@ -9,8 +9,8 @@ resource "google_sql_database_instance" "mysql" {
   region           = var.region
   project          = var.project
 
-  /* settings {
-    tier = "db-f1-micro"
+  settings {
+    tier = "db-f1-small"
     availability_type = "ZONAL"
 
     location_preference {
@@ -21,16 +21,16 @@ resource "google_sql_database_instance" "mysql" {
       private_network = "projects/${var.project}/global/networks/${var.vpc_network_name}"
       ipv4_enabled    = false
 
-      dynamic "authorized_networks" {
+      /* dynamic "authorized_networks" {
         for_each = local.gke
         iterator = gke
         content {
           name  = "gke-endpoint"
           value = gke.value
         }
-      }
+      } */
     }
-  } */
+  }
 }
 /*
 resource "google_sql_user" "postgres_user" {
