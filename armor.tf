@@ -1,5 +1,6 @@
 resource "google_compute_security_policy" "policy" {
      name = "wp-champ-policy"
+     project = "wp-champ"
      description = "Cloud Armor Security Policy"
      adaptive_protection_config {
         layer_7_ddos_defense_config {
