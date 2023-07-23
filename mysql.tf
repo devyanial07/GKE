@@ -1,5 +1,5 @@
 locals {
-  gke = ["35.189.124.160"]
+  gke = ["34.147.200.35"]
 } 
 
 resource "google_sql_database_instance" "mysql_instance" {
