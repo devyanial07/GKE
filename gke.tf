@@ -81,7 +81,7 @@ resource "google_project_iam_member" "gke_role" {
 }  */
 
 
-/* module "gke" {
+module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//examples/simple_autopilot_private"
 
   project_id                      = var.project_id
@@ -96,8 +96,8 @@ resource "google_project_iam_member" "gke_role" {
   enable_vertical_pod_autoscaling = true
   enable_private_endpoint         = true
   enable_private_nodes            = true
-  master_ipv4_cidr_block          = "172.16.0.0/28"
+  master_ipv4_cidr_block          = "10.0.0.0/28"
   network_tags                    = ["simple-autopilot-private"]
 
   #master_authorized_networks = [ ]
-} */
+}
