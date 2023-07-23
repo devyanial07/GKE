@@ -19,7 +19,7 @@ spec:
           name: wordpress
           env:
           - name: WORDPRESS_DB_HOST
-            value: 10.216.86.5:3306
+            value: 127.0.0.1:3306
           # These secrets are required to start the pod.
           - name: WORDPRESS_DB_USER
             valueFrom:
@@ -47,7 +47,7 @@ spec:
                     "-instances=champ-392921:europe-west2:wordpress-wp=tcp:3306",
                     # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
                     # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
-                    # "-ip_address_types=PRIVATE",
+                     "-ip_address_types=PRIVATE",
                     "-credential_file=/secrets/cloudsql/key.json"]
           securityContext:
             runAsUser: 2  # non-root user
