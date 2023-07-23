@@ -100,4 +100,27 @@ module "gke" {
   network_tags                    = ["simple-autopilot-private"]
 
   #master_authorized_networks = [ ]
+
+  node_pools = [
+    {
+      name                      = "default-node-pool"
+      machine_type              = "e2-medium"
+      node_locations            = "europe-west2-a"
+      min_count                 = 2
+      max_count                 = 5
+      disk_type                 = "pd-standard"
+      image_type                = "COS_CONTAINERD"
+      auto_repair               = true
+      auto_upgrade              = true
+      service_account           = google_service_account.gke_sa.email
+      initial_node_count        = 3
+      enable_secure_boot        = true
+    },
+  ]
+  node_pools_oauth_scopes = {
+    all = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+  }
 }
