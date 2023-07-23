@@ -111,7 +111,7 @@ module "gke" {
       auto_upgrade              = true
       service_account           = google_service_account.gke_sa.email
       enable_secure_boot        = true
-      initial_node_count        = 1
+      initial_node_count        = 3
     },
   ]
 
