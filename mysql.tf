@@ -1,4 +1,4 @@
-locals {
+/* locals {
   gke = ["34.147.200.35"]
 } 
 
@@ -47,4 +47,5 @@ resource "google_sql_user" "wordpress_champ_user" {
   instance = "${google_sql_database_instance.mysql_instance.name}"
   host = "%"
   password = var.MYSQL_PASSWORD 
-}
+} 
+*/
