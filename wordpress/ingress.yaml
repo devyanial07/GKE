@@ -1,9 +1,17 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: wp-champ
+spec:
+  domains:
+    - projectchamp.info
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wp-ingress
   annotations:
-    networking.gke.io/managed-certificates: "champ"
+    networking.gke.io/managed-certificates: "wp-champ"
     kubernetes.io/ingress.class: "gce"
     networking.gke.io/v1beta1.FrontendConfig: "sslpolicy"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"

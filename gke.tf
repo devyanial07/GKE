@@ -81,44 +81,23 @@ resource "google_project_iam_member" "gke_role" {
 }  */
 
 
-module "gke" {
-  source                     = "terraform-google-modules/kubernetes-engine/google"
-  project_id                 = var.project
-  name                       = "${var.cluster_name}-extended"
-  region                     = var.region
-  zones                      = var.cluster_zones
-  network                    = var.vpc_network_name
-  subnetwork                 = "${var.vpc_network_name}-primary"
-  ip_range_pods              = "${var.vpc_network_name}-secondary-1"
-  ip_range_services          = "${var.vpc_network_name}-secondary-2"
-  http_load_balancing        = false
-  network_policy             = true
-  horizontal_pod_autoscaling = true
-  filestore_csi_driver       = false
+/* module "gke" {
+  source  = "terraform-google-modules/kubernetes-engine/google//examples/simple_autopilot_private"
 
-  node_pools = [
-    {
-      name                      = "default-node-pool"
-      machine_type              = "e2-medium"
-      node_locations            = "europe-west2-a"
-      min_count                 = 1
-      max_count                 = 5
-      disk_type                 = "pd-standard"
-      image_type                = "COS_CONTAINERD"
-      enable_gcfs               = false
-      enable_gvnic              = false
-      auto_repair               = true
-      auto_upgrade              = true
-      service_account           = google_service_account.gke_sa.email
-      enable_secure_boot        = true
-      initial_node_count        = 3
-    },
-  ]
+  project_id                      = var.project_id
+  name                            = var.cluster_name
+  regional                        = true
+  region                          = var.region
+  network                         = var.vpc_network_name
+  subnetwork                      = "${var.vpc_network_name}-primary"
+  ip_range_pods                   = "${var.vpc_network_name}-secondary-1"
+  ip_range_services               = "${var.vpc_network_name}-secondary-2"
+  release_channel                 = "REGULAR"
+  enable_vertical_pod_autoscaling = true
+  enable_private_endpoint         = true
+  enable_private_nodes            = true
+  master_ipv4_cidr_block          = "172.16.0.0/28"
+  network_tags                    = ["simple-autopilot-private"]
 
-  node_pools_oauth_scopes = {
-    all = [
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
-}
+  #master_authorized_networks = [ ]
+} */
