@@ -51,8 +51,8 @@ jobs:
 
     - name: Deploy manifests to gke
       run: |-
-        kubectl delete -f wordpress/wordpress-volumeclaim.yaml
-        kubectl delete -f wordpress/wordpress_cloudsql.yaml
-        kubectl delete -f wordpress/wordpress-service.yaml
-        kubectl delete -f wordpress/manifests.yaml
+        kubectl apply -f wordpress/wordpress-volumeclaim.yaml
+        kubectl apply -f wordpress/wordpress_cloudsql.yaml
+#        kubectl delete -f wordpress/wordpress-service.yaml
+#        kubectl delete -f wordpress/manifests.yaml
 #        kubectl apply -f wordpress/ingress.yaml

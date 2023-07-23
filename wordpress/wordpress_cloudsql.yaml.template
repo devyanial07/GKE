@@ -44,7 +44,7 @@ spec:
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
           command: ["/cloud_sql_proxy",
-                    "-instances=${INSTANCE_CONNECTION_NAME}=tcp:3306",
+                    "-instances=champ-392921:europe-west2:wordpress-wp=tcp:3306",
                     # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
                     # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
                     # "-ip_address_types=PRIVATE",
