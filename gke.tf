@@ -81,7 +81,7 @@ resource "google_project_iam_member" "gke_role" {
 }  */
 
 
-module "gke" {
+/* module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//examples/simple_autopilot_private"
 
   project_id                      = var.project_id
@@ -123,4 +123,4 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-}
+} */
