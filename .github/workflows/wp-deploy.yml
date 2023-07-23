@@ -51,3 +51,4 @@ jobs:
 
     - name: Deploy manifests to gke
       run: |-
+        kubectl apply -f wordpress/wordpress-volumeclaim.yaml
