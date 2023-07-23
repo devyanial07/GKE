@@ -21,7 +21,7 @@ resource "google_project_iam_member" "gke_role" {
 }
 
 ## GKE instance ##
-module "gke" {
+/* module "gke" {
   depends_on  = [
     module.project_api
   ]
@@ -78,20 +78,83 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-} 
+}  */
 
-/* resource "google_container_cluster" "my_vpc_native_cluster" {
-  name               = "${var.cluster_name}-cluster"
-  location           = var.region
-  initial_node_count = 1
 
-  network    = "${var.vpc_network_name}-primary"
-  subnetwork = "${var.vpc_network_name}-secondary-1"
+module "gke" {
+  source                     = "terraform-google-modules/kubernetes-engine/google"
+  project_id                 = var.project
+  name                       = var.cluster_name
+  region                     = var.region
+  zones                      = var.cluster_zones
+  network                    = var.vpc_network_name
+  subnetwork                 = "${var.vpc_network_name}-primary"
+  ip_range_pods              = "${var.vpc_network_name}-secondary-1"
+  ip_range_services          = "${var.vpc_network_name}-secondary-2"
+  http_load_balancing        = false
+  network_policy             = false
+  horizontal_pod_autoscaling = true
+  filestore_csi_driver       = false
 
-  ip_allocation_policy {
-    cluster_secondary_range_name  = "pod-ranges"
-    services_secondary_range_name = google_compute_subnetwork.custom.secondary_ip_range.0.range_name
+  node_pools = [
+    {
+      name                      = "default-node-pool"
+      machine_type              = "e2-medium"
+      node_locations            = "us-central1-b,us-central1-c"
+      min_count                 = 1
+      max_count                 = 5
+      disk_type                 = "pd-standard"
+      image_type                = "COS_CONTAINERD"
+      enable_gcfs               = false
+      enable_gvnic              = false
+      auto_repair               = true
+      auto_upgrade              = true
+      service_account           = google_service_account.gke_sa.email
+      enable_secure_boot        = true
+      initial_node_count        = 1
+    },
+  ]
+
+  node_pools_oauth_scopes = {
+    all = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+  }
+/* 
+  node_pools_labels = {
+    all = {}
+
+    default-node-pool = {
+      default-node-pool = true
+    }
   }
 
-  # other settings...
-} */
+  node_pools_metadata = {
+    all = {}
+
+    default-node-pool = {
+      node-pool-metadata-custom-value = "my-node-pool"
+    }
+  }
+
+  node_pools_taints = {
+    all = []
+
+    default-node-pool = [
+      {
+        key    = "default-node-pool"
+        value  = true
+        effect = "PREFER_NO_SCHEDULE"
+      },
+    ]
+  }
+
+  node_pools_tags = {
+    all = []
+
+    default-node-pool = [
+      "default-node-pool",
+    ]
+  } */
+}
