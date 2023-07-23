@@ -92,7 +92,7 @@ module "gke" {
   ip_range_pods              = "${var.vpc_network_name}-secondary-1"
   ip_range_services          = "${var.vpc_network_name}-secondary-2"
   http_load_balancing        = false
-  network_policy             = false
+  network_policy             = true
   horizontal_pod_autoscaling = true
   filestore_csi_driver       = false
 
