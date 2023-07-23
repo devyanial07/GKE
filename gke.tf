@@ -100,7 +100,7 @@ module "gke" {
     {
       name                      = "default-node-pool"
       machine_type              = "e2-medium"
-      node_locations            = "us-central1-b,us-central1-c"
+      node_locations            = "europe-west2-a"
       min_count                 = 1
       max_count                 = 5
       disk_type                 = "pd-standard"
