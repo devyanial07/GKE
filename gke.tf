@@ -39,7 +39,7 @@ module "gke" {
   network_policy             = true
   horizontal_pod_autoscaling = true
   #enable_private_endpoint    = true
-  enable_private_nodes       = true
+  enable_private_nodes       = false
   issue_client_certificate   = false
   remove_default_node_pool   = true
   master_ipv4_cidr_block     = "10.0.0.0/28"
@@ -79,3 +79,19 @@ module "gke" {
     ]
   }
 } 
+
+/* resource "google_container_cluster" "my_vpc_native_cluster" {
+  name               = "${var.cluster_name}-cluster"
+  location           = var.region
+  initial_node_count = 1
+
+  network    = "${var.vpc_network_name}-primary"
+  subnetwork = "${var.vpc_network_name}-secondary-1"
+
+  ip_allocation_policy {
+    cluster_secondary_range_name  = "pod-ranges"
+    services_secondary_range_name = google_compute_subnetwork.custom.secondary_ip_range.0.range_name
+  }
+
+  # other settings...
+} */
