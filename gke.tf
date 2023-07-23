@@ -84,7 +84,7 @@ resource "google_project_iam_member" "gke_role" {
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   project_id                 = var.project
-  name                       = var.cluster_name
+  name                       = "${var.cluster_name}-extended"
   region                     = var.region
   zones                      = var.cluster_zones
   network                    = var.vpc_network_name
@@ -121,40 +121,4 @@ module "gke" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-/* 
-  node_pools_labels = {
-    all = {}
-
-    default-node-pool = {
-      default-node-pool = true
-    }
-  }
-
-  node_pools_metadata = {
-    all = {}
-
-    default-node-pool = {
-      node-pool-metadata-custom-value = "my-node-pool"
-    }
-  }
-
-  node_pools_taints = {
-    all = []
-
-    default-node-pool = [
-      {
-        key    = "default-node-pool"
-        value  = true
-        effect = "PREFER_NO_SCHEDULE"
-      },
-    ]
-  }
-
-  node_pools_tags = {
-    all = []
-
-    default-node-pool = [
-      "default-node-pool",
-    ]
-  } */
 }
